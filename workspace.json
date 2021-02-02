@@ -1,10 +1,204 @@
 {
-  
-  
   "version": 2,
-  
-  "projects": {},
+  "projects": {
+    "starter-app": {
+      "projectType": "application",
+      "root": "apps/starter-app",
+      "sourceRoot": "apps/starter-app/src",
+      "prefix": "of5",
+      "targets": {
+        "build": {
+          "executor": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/apps/starter-app",
+            "index": "apps/starter-app/src/index.html",
+            "main": "apps/starter-app/src/main.ts",
+            "polyfills": "apps/starter-app/src/polyfills.ts",
+            "tsConfig": "apps/starter-app/tsconfig.app.json",
+            "aot": true,
+            "assets": [
+              "apps/starter-app/src/favicon.ico",
+              "apps/starter-app/src/assets"
+            ],
+            "styles": [
+              "apps/starter-app/src/styles.scss"
+            ],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "apps/starter-app/src/environments/environment.ts",
+                  "with": "apps/starter-app/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb",
+                  "maximumError": "10kb"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "executor": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "starter-app:build"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "starter-app:build:production"
+            }
+          }
+        },
+        "extract-i18n": {
+          "executor": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "starter-app:build"
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "apps/starter-app/src/**/*.ts",
+              "apps/starter-app/src/**/*.html"
+            ]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": [
+            "coverage/apps/starter-app"
+          ],
+          "options": {
+            "jestConfig": "apps/starter-app/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "starter-app-e2e": {
+      "root": "apps/starter-app-e2e",
+      "sourceRoot": "apps/starter-app-e2e/src",
+      "projectType": "application",
+      "targets": {
+        "e2e": {
+          "executor": "@nrwl/cypress:cypress",
+          "options": {
+            "cypressConfig": "apps/starter-app-e2e/cypress.json",
+            "tsConfig": "apps/starter-app-e2e/tsconfig.e2e.json",
+            "devServerTarget": "starter-app:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "starter-app:serve:production"
+            }
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "apps/starter-app-e2e/**/*.{js,ts}"
+            ]
+          }
+        }
+      }
+    },
+    "starter-api": {
+      "root": "apps/starter-api",
+      "sourceRoot": "apps/starter-api/src",
+      "projectType": "application",
+      "prefix": "starter-api",
+      "targets": {
+        "build": {
+          "executor": "@nrwl/node:build",
+          "outputs": [
+            "{options.outputPath}"
+          ],
+          "options": {
+            "outputPath": "dist/apps/starter-api",
+            "main": "apps/starter-api/src/main.ts",
+            "tsConfig": "apps/starter-api/tsconfig.app.json",
+            "assets": [
+              "apps/starter-api/src/assets"
+            ]
+          },
+          "configurations": {
+            "production": {
+              "optimization": true,
+              "extractLicenses": true,
+              "inspect": false,
+              "fileReplacements": [
+                {
+                  "replace": "apps/starter-api/src/environments/environment.ts",
+                  "with": "apps/starter-api/src/environments/environment.prod.ts"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "executor": "@nrwl/node:execute",
+          "options": {
+            "buildTarget": "starter-api:build"
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "apps/starter-api/**/*.ts"
+            ]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": [
+            "coverage/apps/starter-api"
+          ],
+          "options": {
+            "jestConfig": "apps/starter-api/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    }
+  },
   "cli": {
-    "defaultCollection": "@nrwl/workspace"
-  }
+    "defaultCollection": "@nrwl/angular"
+  },
+  "generators": {
+    "@nrwl/angular:application": {
+      "style": "scss",
+      "linter": "eslint",
+      "unitTestRunner": "jest",
+      "e2eTestRunner": "cypress"
+    },
+    "@nrwl/angular:library": {
+      "style": "scss",
+      "linter": "eslint",
+      "unitTestRunner": "jest"
+    },
+    "@nrwl/angular:component": {
+      "style": "scss"
+    }
+  },
+  "defaultProject": "starter-app"
 }

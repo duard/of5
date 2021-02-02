@@ -1,14 +1,9 @@
 {
   "npmScope": "of5",
-  "affected": {
-    "defaultBase": "master"
-  },
+  "affected": { "defaultBase": "master" },
   "implicitDependencies": {
     "workspace.json": "*",
-    "package.json": {
-      "dependencies": "*",
-      "devDependencies": "*"
-    },
+    "package.json": { "dependencies": "*", "devDependencies": "*" },
     "tsconfig.base.json": "*",
     "tslint.json": "*",
     ".eslintrc.json": "*",
@@ -16,16 +11,18 @@
   },
   "tasksRunnerOptions": {
     "default": {
-      "runner": "@nrwl/workspace/tasks-runners/default",
+      "runner": "@nrwl/nx-cloud",
       "options": {
-        "cacheableOperations": [
-          "build",
-          "lint",
-          "test",
-          "e2e"
-        ]
+        "accessToken": "NzU2NDJhZTQtZTBjOC00MDIyLTgyOTgtNDQ2YjE3YTY3NjQxfHJlYWQtd3JpdGU=",
+        "cacheableOperations": ["build", "test", "lint", "e2e"],
+        "canTrackAnalytics": false,
+        "showUsageWarnings": true
       }
     }
   },
-  "projects": {}
+  "projects": {
+    "starter-app": { "tags": [] },
+    "starter-app-e2e": { "tags": [], "implicitDependencies": ["starter-app"] },
+    "starter-api": { "tags": [] }
+  }
 }
