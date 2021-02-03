@@ -166,7 +166,9 @@
         "serve": {
           "executor": "@nrwl/node:execute",
           "options": {
-            "buildTarget": "starter-api:build"
+            "buildTarget": "starter-api:build",
+            "proxyConfig": "apps/starter-app/proxy.conf.json",
+            "port": 5000            
           }
         },
         "lint": {

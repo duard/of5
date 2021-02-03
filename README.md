@@ -1,3 +1,12 @@
+# Basic Workspace for New Projects
+
+#### como rodar a API e APP simultaneamente
+`
+npx nx run-many --target=serve --projects=starter-app,starter-api --parallel=true
+`
+
+
+
 #### Dependencias
 ```
 npx create-nx-workspace of5 
