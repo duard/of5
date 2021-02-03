@@ -26,14 +26,14 @@
     "starter-api": { "tags": [] },
     "cruds-app": { "tags": [], "implicitDependencies": ["shared-assets", "shared-styles"] },
     "cruds-app-e2e": { "tags": [], "implicitDependencies": ["cruds-app"] },
-    "app-shared": { "tags": [] },
     "shared-assets": { "tags": ["scope:shared", "type:assets"] },
     "shared-styles": { "tags": ["scope:shared", "type:styles"] },
     "shared-environments": { "tags": ["scope:shared", "type:environments"] },
     "shared-interfaces": { "tags": ["scope:shared", "type:interfaces"] },
-    "shared-app-core": { "tags": ["scope:core", "type:app-core"] },
-    "shared-app-store": { "tags": ["scope:core", "type:app-store"] },
-    "shared-api-core": { "tags": ["scope:core", "type:api-core"] },
-    "shared-api-shared": { "tags": ["scope:core", "type:api-shared"] }
+    "app-core": { "tags": ["scope:core", "type:app-core"] },
+    "app-store": { "tags": ["scope:core", "type:app-store"] },
+    "api-core": { "tags": ["scope:core", "type:api-core"] },
+    "api-shared": { "tags": ["scope:core", "type:api-shared"] },
+    "api-acl": { "tags": ["scope:acl", "type:api-acl"] }
   }
 }

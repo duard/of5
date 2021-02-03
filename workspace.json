@@ -322,33 +322,6 @@
         }
       }
     },
-    "app-shared": {
-      "projectType": "library",
-      "root": "libs/app-shared",
-      "sourceRoot": "libs/app-shared/src",
-      "prefix": "of5",
-      "targets": {
-        "lint": {
-          "executor": "@nrwl/linter:eslint",
-          "options": {
-            "lintFilePatterns": [
-              "libs/app-shared/src/**/*.ts",
-              "libs/app-shared/src/**/*.html"
-            ]
-          }
-        },
-        "test": {
-          "executor": "@nrwl/jest:jest",
-          "outputs": [
-            "coverage/libs/app-shared"
-          ],
-          "options": {
-            "jestConfig": "libs/app-shared/jest.config.js",
-            "passWithNoTests": true
-          }
-        }
-      }
-    },
     "shared-assets": {
       "projectType": "library",
       "root": "libs/shared/assets",
@@ -413,7 +386,7 @@
         }
       }
     },
-    "shared-app-core": {
+    "app-core": {
       "projectType": "library",
       "root": "libs/shared/app-core",
       "sourceRoot": "libs/shared/app-core/src",
@@ -440,7 +413,7 @@
         }
       }
     },
-    "shared-app-store": {
+    "app-store": {
       "projectType": "library",
       "root": "libs/shared/app-store",
       "sourceRoot": "libs/shared/app-store/src",
@@ -467,7 +440,7 @@
         }
       }
     },
-    "shared-api-core": {
+    "api-core": {
       "root": "libs/shared/api-core",
       "sourceRoot": "libs/shared/api-core/src",
       "projectType": "library",
@@ -492,7 +465,7 @@
         }
       }
     },
-    "shared-api-shared": {
+    "api-shared": {
       "root": "libs/shared/api-shared",
       "sourceRoot": "libs/shared/api-shared/src",
       "projectType": "library",
@@ -512,6 +485,31 @@
           ],
           "options": {
             "jestConfig": "libs/shared/api-shared/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "api-acl": {
+      "root": "libs/shared/api-acl",
+      "sourceRoot": "libs/shared/api-acl/src",
+      "projectType": "library",
+      "targets": {
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/shared/api-acl/**/*.ts"
+            ]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": [
+            "coverage/libs/shared/api-acl"
+          ],
+          "options": {
+            "jestConfig": "libs/shared/api-acl/jest.config.js",
             "passWithNoTests": true
           }
         }
