@@ -1,11 +1,20 @@
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { isDevMode, ModuleWithProviders, NgModule } from '@angular/core';
+import { EntityCollectionReducerMethodsFactory, EntityDataModule, PersistenceResultHandler } from '@ngrx/data';
+import { EffectsModule } from '@ngrx/effects';
+import { StoreRouterConnectingModule } from '@ngrx/router-store';
 import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from '@of5/shared/environments';
 
-import { metaReducers, reducers } from './reducers';
+import { metaReducers, reducers } from '.';
+import { AdditionalEntityCollectionReducerMethodsFactory } from './additional-entity-collection-reducer-methods-factory';
+import { AdditionalPersistenceResultHandler } from './additional-persistence-result-handler';
+import { entityConfig } from './entity-metadata';
+import { HydrationEffects } from './hydration/hydration.effects';
+import { RouterEffects } from './router/router.effects';
+import { SettingsEffects } from './settings/settings.effects';
 
 const RouterStateMinimal = 1;
 
@@ -16,58 +25,6 @@ const RouterStateMinimal = 1;
     StoreModule.forRoot(reducers, {
       metaReducers,
       runtimeChecks: {
-        strictActionImmutability: false,
-        strictActionSerializability: false,
-        strictActionTypeUniqueness: isDevMode(),
-        strictActionWithinNgZone: isDevMode(),
-        strictStateImmutability: isDevMode(),
-        strictStateSerializability: false
-      }
-    }),
-    // EffectsModule.forRoot([HydrationEffects, RouterEffects, SettingsEffects]),
-    // StoreRouterConnectingModule.forRoot({ routerState: RouterStateMinimal }),
-    // EntityDataModule.forRoot(entityConfig),
-
-    environment.production
-      ? []
-      : StoreDevtoolsModule.instrument({
-          name: '2020 Estoques',
-          maxAge: 26
-        })
-  ],
-  providers: [
-    // {
-    //   provide: PersistenceResultHandler,
-    //   useClass: AdditionalPersistenceResultHandler
-    // },
-    // {
-    //   provide: EntityCollectionReducerMethodsFactory,
-    //   useClass: AdditionalEntityCollectionReducerMethodsFactory
-    // }
-  ]
-})
-export class SharedDataAccessRootModule {}
-
-@NgModule({})
-export class SharedDataAccessModule {
-  static forRoot(): ModuleWithProviders<SharedDataAccessRootModule> {
-    return {
-      ngModule: SharedDataAccessRootModule,
-    };
-  }
-}
-
-/*
-const RouterStateMinimal = 1;
-
-@NgModule({
-  imports: [
-    CommonModule,
-    HttpClientModule,
-    StoreModule.forRoot(reducers, {
-      metaReducers,
-      runtimeChecks: {
-        // strictActionWithinNgZone: false,
         strictActionImmutability: false,
         strictActionSerializability: false,
         strictActionTypeUniqueness: isDevMode(),
@@ -83,11 +40,14 @@ const RouterStateMinimal = 1;
     environment.production
       ? []
       : StoreDevtoolsModule.instrument({
-          name: '2020 Estoques',
-          maxAge: 26
+          name: 'OF5 Store',
+          maxAge: 36
         })
   ],
   providers: [
+    /*
+      Estes providers são para trabalharmos com os parametros vindos do NestJS ;-)
+    */
     {
       provide: PersistenceResultHandler,
       useClass: AdditionalPersistenceResultHandler
@@ -98,10 +58,18 @@ const RouterStateMinimal = 1;
     }
   ]
 })
-export class AppStoreModule {
+export class SharedDataAccessRootModule {
   constructor() {
     console.log('isDevMode()', isDevMode());
+  }  
+}
+
+@NgModule({})
+export class SharedDataAccessModule {
+  static forRoot(): ModuleWithProviders<SharedDataAccessRootModule> {
+    return {
+      ngModule: SharedDataAccessRootModule,
+    };
   }
 }
 
-*/
