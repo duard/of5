@@ -21,10 +21,18 @@
     }
   },
   "projects": {
-    "starter-app": { "tags": [] },
+    "starter-app": { "tags": [] , 
+      "implicitDependencies": [
+        "shared-assets",
+        "shared-styles"
+      ]},
     "starter-app-e2e": { "tags": [], "implicitDependencies": ["starter-app"] },
     "starter-api": { "tags": [] },
-    "cruds-app": { "tags": [] },
+    "cruds-app": { "tags": [] ,
+      "implicitDependencies": [
+        "shared-assets",
+        "shared-styles"
+      ]},
     "cruds-app-e2e": { "tags": [], "implicitDependencies": ["cruds-app"] },
     "app-shared": { "tags": [] },
     "shared-assets": { "tags": ["scope:shared", "type:assets"] },

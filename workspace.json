@@ -100,11 +100,7 @@
             "passWithNoTests": true
           }
         }
-      },
-      "implicitDependencies": [
-        "shared-assets",
-        "shared-styles"
-      ]
+      }
     },
     "starter-app-e2e": {
       "root": "apps/starter-app-e2e",
@@ -191,11 +187,7 @@
             "passWithNoTests": true
           }
         }
-      },
-      "implicitDependencies": [
-        "shared-assets",
-        "shared-styles"
-      ]
+      }
     },
     "cruds-app": {
       "projectType": "application",
