@@ -8,6 +8,7 @@ module.exports = {
     '<rootDir>/libs/shared/styles',
     '<rootDir>/libs/shared/environments',
     '<rootDir>/libs/shared/data-access',
-    '<rootDir>/libs/shared/core'
+    '<rootDir>/libs/shared/core',
+    '<rootDir>/libs/shared/interfaces'
   ]
 };
