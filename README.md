@@ -1,5 +1,12 @@
 # Basic Workspace for New Projects
 
+#### rodando os projetos
+
+```
+ nx serve starter-api   
+ nx serve starter-app   
+```
+
 #### como rodar a API e APP simultaneamente
 `
 npx nx run-many --target=serve --projects=starter-app,starter-api --parallel=true

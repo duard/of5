@@ -67,7 +67,9 @@
         "serve": {
           "executor": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "starter-app:build"
+            "browserTarget": "starter-app:build",
+            "proxyConfig": "apps/starter-app/proxy.conf.json",
+            "port": 5000                 
           },
           "configurations": {
             "production": {
@@ -166,9 +168,7 @@
         "serve": {
           "executor": "@nrwl/node:execute",
           "options": {
-            "buildTarget": "starter-api:build",
-            "proxyConfig": "apps/starter-app/proxy.conf.json",
-            "port": 5000            
+            "buildTarget": "starter-api:build"       
           }
         },
         "lint": {
@@ -257,7 +257,9 @@
         "serve": {
           "executor": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "cruds-app:build"
+            "browserTarget": "cruds-app:build",
+            "proxyConfig": "apps/cruds-app/proxy.conf.json",
+            "port": 5001                 
           },
           "configurations": {
             "production": {
