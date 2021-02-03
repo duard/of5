@@ -1,9 +1,9 @@
-import 'winston-daily-rotate-file'
+import 'winston-daily-rotate-file';
 
-import { MiddlewareConsumer, Module } from '@nestjs/common'
-import { utilities as nestWinstonModuleUtilities, WinstonModule } from 'nest-winston'
-import * as winston from 'winston'
-import { ApiLoggerMiddleware } from './middlewares/api-logger.middleware'
+import { MiddlewareConsumer, Module } from '@nestjs/common';
+import { utilities as nestWinstonModuleUtilities, WinstonModule } from 'nest-winston';
+import * as winston from 'winston';
+import { ApiLoggerMiddleware } from './middlewares/api-logger.middleware';
 
 @Module({
   imports: [
@@ -44,6 +44,6 @@ import { ApiLoggerMiddleware } from './middlewares/api-logger.middleware'
 })
 export class ApiCoreModule {
   configure(consumer: MiddlewareConsumer): void {
-    consumer.apply(ApiLoggerMiddleware).forRoutes('*')
+    consumer.apply(ApiLoggerMiddleware).forRoutes('*');
   }
 }

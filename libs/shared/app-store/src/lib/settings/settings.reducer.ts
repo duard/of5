@@ -1,4 +1,4 @@
-import { Action, createReducer, on } from '@ngrx/store'
+import { Action, createReducer, on } from '@ngrx/store';
 
 import {
   actionPushMenu,
@@ -11,24 +11,24 @@ import {
   actionSettingsChangeSideNav,
   actionSettingsChangeStickyHeader,
   actionSettingsChangeTheme,
-} from './settings.actions'
+} from './settings.actions';
 
-export const NIGHT_MODE_THEME = 'BLACK-THEME'
+export const NIGHT_MODE_THEME = 'BLACK-THEME';
 
-export type Language = 'en' | 'sk' | 'de' | 'fr' | 'es' | 'pt-br' | 'he'
+export type Language = 'en' | 'sk' | 'de' | 'fr' | 'es' | 'pt-br' | 'he';
 
 export interface SettingsState {
-  sideNav: boolean
-  language: string
-  theme: string
-  autoNightMode: boolean
-  nightTheme: string
-  stickyHeader: boolean
-  pageAnimations: boolean
-  pageAnimationsDisabled: boolean
-  elementsAnimations: boolean
-  hour: number
-  menus: any
+  sideNav: boolean;
+  language: string;
+  theme: string;
+  autoNightMode: boolean;
+  nightTheme: string;
+  stickyHeader: boolean;
+  pageAnimations: boolean;
+  pageAnimationsDisabled: boolean;
+  elementsAnimations: boolean;
+  hour: number;
+  menus: any;
 }
 
 export const initialState: SettingsState = {
@@ -43,7 +43,7 @@ export const initialState: SettingsState = {
   elementsAnimations: true,
   hour: 0,
   menus: null,
-}
+};
 
 const reducer = createReducer(
   initialState,
@@ -77,14 +77,14 @@ const reducer = createReducer(
   // })),
 
   on(actionPushMenu, (state, { menus }) => {
-    console.log('reducer', typeof menus)
+    console.log('reducer', typeof menus);
     //  menus.map(item => Object.assign({}, item, { selected: false }));
     // state.menus = ['menu1', 'menu2'];
 
-    return { ...state, menus }
+    return { ...state, menus };
   }),
-)
+);
 
 export function settingsReducer(state: SettingsState | undefined, action: Action) {
-  return reducer(state, action)
+  return reducer(state, action);
 }

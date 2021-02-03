@@ -1,7 +1,7 @@
-import { routerCancelAction, routerErrorAction, routerNavigatedAction, routerRequestAction } from '@ngrx/router-store'
-import { createReducer, on } from '@ngrx/store'
+import { routerCancelAction, routerErrorAction, routerNavigatedAction, routerRequestAction } from '@ngrx/router-store';
+import { createReducer, on } from '@ngrx/store';
 
-import { initialState } from './navigation.state'
+import { initialState } from './navigation.state';
 
 export const navigationReducer = createReducer(
   initialState,
@@ -13,4 +13,4 @@ export const navigationReducer = createReducer(
     ...state,
     loading: false,
   })),
-)
+);

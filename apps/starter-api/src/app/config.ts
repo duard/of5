@@ -1,6 +1,6 @@
-import { join } from 'path'
+import { join } from 'path';
 
-import { environment } from './../environments/environment'
+import { environment } from './../environments/environment';
 
 export const config = () => ({
   port: Number(process.env.API_PORT),
@@ -29,7 +29,7 @@ export const config = () => ({
     autoLoadEntities: true,
     logging: false,
   },
-})
+});
 
 /*
   production: false,

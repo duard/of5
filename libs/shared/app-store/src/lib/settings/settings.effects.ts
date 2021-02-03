@@ -1,13 +1,13 @@
-import { SettingsState } from './settings.reducer'
+import { SettingsState } from './settings.reducer';
 
-import { OverlayContainer } from '@angular/cdk/overlay'
-import { Injectable } from '@angular/core'
-import { ActivationEnd, Router } from '@angular/router'
-import { Actions, createEffect, ofType } from '@ngrx/effects'
-import { select, State, Store } from '@ngrx/store'
-import { TranslateService } from '@ngx-translate/core'
+import { OverlayContainer } from '@angular/cdk/overlay';
+import { Injectable } from '@angular/core';
+import { ActivationEnd, Router } from '@angular/router';
+import { Actions, createEffect, ofType } from '@ngrx/effects';
+import { select, State, Store } from '@ngrx/store';
+import { TranslateService } from '@ngx-translate/core';
 
-import { distinctUntilChanged, filter, map, mapTo, tap, withLatestFrom } from 'rxjs/operators'
+import { distinctUntilChanged, filter, map, mapTo, tap, withLatestFrom } from 'rxjs/operators';
 
 import {
   actionPushMenu,
@@ -20,20 +20,20 @@ import {
   actionSettingsChangeSideNav,
   actionSettingsChangeStickyHeader,
   actionSettingsChangeTheme,
-} from './settings.actions'
+} from './settings.actions';
 import {
   selectEffectiveTheme,
   selectElementsAnimations,
   selectPageAnimations,
   selectSettingsLanguage,
   selectSettingsSideNav,
-} from './settings.selectors'
-import { of, interval } from 'rxjs'
+} from './settings.selectors';
+import { of, interval } from 'rxjs';
 
 // import { combineLatest, interval, merge, of } from 'rxjs';
-export const SETTINGS_KEY = 'SETTINGS'
+export const SETTINGS_KEY = 'SETTINGS';
 
-const INIT = of('anms-init-effect-trigger')
+const INIT = of('anms-init-effect-trigger');
 
 @Injectable()
 export class SettingsEffects {
@@ -50,7 +50,7 @@ export class SettingsEffects {
       distinctUntilChanged(),
       map((hour) => actionSettingsChangeHour({ hour })),
     ),
-  )
+  );
   changeLeftSideNav$ = createEffect(
     () =>
       this.actions$.pipe(
@@ -61,7 +61,7 @@ export class SettingsEffects {
         ),
       ),
     { dispatch: false },
-  )
+  );
 
   pushMenu$ = createEffect(
     () =>
@@ -73,7 +73,7 @@ export class SettingsEffects {
         ),
       ),
     { dispatch: false },
-  )
+  );
 
   // setTranslateServiceLanguage = createEffect(
   //   () =>

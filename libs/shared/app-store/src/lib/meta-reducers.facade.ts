@@ -1,7 +1,7 @@
-import { Injectable, NgZone } from '@angular/core'
-import { Store } from '@ngrx/store'
-import * as thisActions from './meta-reducers'
-import { reset } from './meta-reducers'
+import { Injectable, NgZone } from '@angular/core';
+import { Store } from '@ngrx/store';
+import * as thisActions from './meta-reducers';
+import { reset } from './meta-reducers';
 
 @Injectable({
   providedIn: 'root',
@@ -14,7 +14,7 @@ export class StoreFacade {
 
     this.ngZone.run(() => {
       // Bring event back inside Angular's zone
-      this.store$.dispatch(reset())
-    })
+      this.store$.dispatch(reset());
+    });
   }
 }

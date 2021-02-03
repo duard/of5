@@ -1,7 +1,7 @@
-import { getSelectors } from '@ngrx/router-store'
-import { RootState } from '..'
+import { getSelectors } from '@ngrx/router-store';
+import { RootState } from '..';
 
-export const selectFeature = (state: RootState) => state.router
+export const selectFeature = (state: RootState) => state.router;
 
 export const {
   selectCurrentRoute,
@@ -12,4 +12,4 @@ export const {
   selectRouteParam,
   selectRouteData,
   selectUrl,
-} = getSelectors(selectFeature)
+} = getSelectors(selectFeature);

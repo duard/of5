@@ -18,4 +18,4 @@ module.exports = {
     '<rootDir>/libs/shared/api-shared',
     '<rootDir>/libs/shared/api-acl',
   ],
-}
+};
