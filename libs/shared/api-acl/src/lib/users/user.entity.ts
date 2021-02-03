@@ -1,5 +1,7 @@
 import { BaseMysqlEntity } from '@of5/shared/api-shared';
 import { Column, Entity, JoinColumn, ManyToOne, OneToMany, OneToOne } from 'typeorm';
+import { Member } from '../member/member.entity';
+import { UserGroupEntity } from '../user-group/user-group.entity';
 // import { Account } from './account.entity';
 // import { Member } from './member.entity';
 // import { MenuGroup } from './menu-group.entity';
@@ -9,7 +11,7 @@ import { Column, Entity, JoinColumn, ManyToOne, OneToMany, OneToOne } from 'type
 // import { UserGroup } from './user-group.entity';
 
 @Entity({ name: 'users' })
-export class User extends BaseMysqlEntity {
+export class UserEntity extends BaseMysqlEntity {
   @Column({ type: 'varchar', length: 20, name: 'username', comment: 'NOME' })
   username: string;
 
@@ -43,7 +45,7 @@ export class User extends BaseMysqlEntity {
   @Column({ type: 'date', name: 'bithday', comment: 'DATA DE NASCIMENTO' })
   birthday: Date;
 
-  @Column({ type: 'timestamptz', name: 'pass_expiration', nullable: true, comment: 'DATA DE EXPIRAÇÃO DA SENHA' })
+  @Column({ type: 'timestamp', name: 'pass_expiration', nullable: true, comment: 'DATA DE EXPIRAÇÃO DA SENHA' })
   passExpiration: Date;
 
   @Column({ type: 'boolean', name: 'pass_change', default: false, comment: 'TROCAR SENHA SIM/NÃO' })
@@ -75,65 +77,65 @@ export class User extends BaseMysqlEntity {
   @Column({ type: 'boolean', name: 'su', default: false, comment: 'Usuário é  SU - Super Usuário' })
   su: boolean;
 
-  //   // members são os grupos que o usuário participa
-  //   @OneToMany((type) => Member, (member) => member.user)
-  //   members: Member[];
+  // members são os grupos que o usuário participa
+  @OneToMany(() => Member, (member) => member.user)
+  members: Member[];
 
   //   // Usuários que foram criados por um usuário
-  //   @OneToMany((type) => User, (user) => user.createdBy, { nullable: true, onDelete: 'SET NULL' })
-  //   createdUsers: User[];
+  @OneToMany(() => UserEntity, (user) => user.createdBy, { nullable: true, onDelete: 'SET NULL' })
+  createdUsers: UserEntity[];
 
-  //   // Usuários que foram editados por um usuário
-  //   @OneToMany((type) => User, (user) => user.updatedBy, { nullable: true, onDelete: 'SET NULL' })
-  //   updatedUsers: User[];
+  // Usuários que foram editados por um usuário
+  @OneToMany(() => UserEntity, (user) => user.updatedBy, { nullable: true, onDelete: 'SET NULL' })
+  updatedUsers: UserEntity[];
 
-  //   // Usuário que criou o usuário
-  //   @ManyToOne((type) => User, (user) => user.createdUsers)
-  //   @JoinColumn({ name: 'created_by', referencedColumnName: 'id' })
-  //   createdBy: User;
+  // Usuário que criou o usuário
+  @ManyToOne(() => UserEntity, (user) => user.createdUsers)
+  @JoinColumn({ name: 'created_by', referencedColumnName: 'id' })
+  createdBy: UserEntity;
 
-  //   // Usuário que atualizou o usuário
-  //   @ManyToOne((type) => User, (user) => user.updatedUsers)
-  //   @JoinColumn({ name: 'updated_by', referencedColumnName: 'id' })
-  //   updatedBy: User;
+  // Usuário que atualizou o usuário
+  @ManyToOne(() => UserEntity, (user) => user.updatedUsers)
+  @JoinColumn({ name: 'updated_by', referencedColumnName: 'id' })
+  updatedBy: UserEntity;
 
-  //   // Grupos criados pelo usuário
-  //   @OneToMany((type) => UserGroup, (group) => group.createdBy, { nullable: true, onDelete: 'SET NULL' })
-  //   createdGroups: UserGroup[];
+  // Grupos criados pelo usuário
+  @OneToMany(() => UserGroupEntity, (group) => group.createdBy, { nullable: true, onDelete: 'SET NULL' })
+  createdGroups: UserGroupEntity[];
 
-  //   // Grupos atualizados pelo usuário
-  //   @OneToMany((type) => UserGroup, (group) => group.updatedBy, { nullable: true, onDelete: 'SET NULL' })
-  //   updatedGroups: UserGroup[];
+  // Grupos atualizados pelo usuário
+  @OneToMany((type) => UserGroupEntity, (group) => group.updatedBy, { nullable: true, onDelete: 'SET NULL' })
+  updatedGroups: UserGroupEntity[];
 
-  //   // Menu itens criados pelo usuário
-  //   @OneToMany((type) => MenuItem, (menuItem) => menuItem.createdBy, { nullable: true, onDelete: 'SET NULL' })
-  //   createdMenuItens: MenuItem[];
+  // Menu itens criados pelo usuário
+  @OneToMany((type) => MenuItem, (menuItem) => menuItem.createdBy, { nullable: true, onDelete: 'SET NULL' })
+  createdMenuItens: MenuItem[];
 
-  //   // Menu itens atualizados pelo usuário
-  //   @OneToMany((type) => MenuItem, (menuItem) => menuItem.updatedBy, { nullable: true, onDelete: 'SET NULL' })
-  //   updatedMenuItens: MenuItem[];
+  // Menu itens atualizados pelo usuário
+  @OneToMany((type) => MenuItem, (menuItem) => menuItem.updatedBy, { nullable: true, onDelete: 'SET NULL' })
+  updatedMenuItens: MenuItem[];
 
-  //   // Grupos de Menus criados pelo usuário
-  //   @OneToMany((type) => MenuGroup, (menuGrup) => menuGrup.createdBy, { nullable: true, onDelete: 'SET NULL' })
-  //   createdMenuGroup: MenuGroup[];
+  // Grupos de Menus criados pelo usuário
+  @OneToMany((type) => MenuGroup, (menuGrup) => menuGrup.createdBy, { nullable: true, onDelete: 'SET NULL' })
+  createdMenuGroup: MenuGroup[];
 
-  //   // Grupos de Menus atualizados pelo usuário
-  //   @OneToMany((type) => MenuGroup, (menuGroup) => menuGroup.updatedBy, { nullable: true, onDelete: 'SET NULL' })
-  //   updatedMenuGroup: MenuGroup[];
+  // Grupos de Menus atualizados pelo usuário
+  @OneToMany((type) => MenuGroup, (menuGroup) => menuGroup.updatedBy, { nullable: true, onDelete: 'SET NULL' })
+  updatedMenuGroup: MenuGroup[];
 
-  //   // Contas criadas pelo usuário
-  //   @OneToMany((type) => Account, (account) => account.createdBy, { nullable: true, onDelete: 'SET NULL' })
-  //   createdAccounts: Account[];
+  // Contas criadas pelo usuário
+  @OneToMany((type) => Account, (account) => account.createdBy, { nullable: true, onDelete: 'SET NULL' })
+  createdAccounts: Account[];
 
-  //   // Contas atualizadas pelo usuário
-  //   @OneToMany((type) => Account, (account) => account.updatedBy, { nullable: true, onDelete: 'SET NULL' })
-  //   updatedAccounts: Account[];
+  // Contas atualizadas pelo usuário
+  @OneToMany((type) => Account, (account) => account.updatedBy, { nullable: true, onDelete: 'SET NULL' })
+  updatedAccounts: Account[];
 
-  //   // Parametros criados pelo usuário
-  //   @OneToMany((type) => Parameter, (parameter) => parameter.createdBy, { nullable: true, onDelete: 'SET NULL' })
-  //   createdParameters: Parameter[];
+  // Parametros criados pelo usuário
+  @OneToMany((type) => Parameter, (parameter) => parameter.createdBy, { nullable: true, onDelete: 'SET NULL' })
+  createdParameters: Parameter[];
 
-  //   // Parametros atualizados pelo usuário
-  //   @OneToMany((type) => Parameter, (parameter) => parameter.updatedBy, { nullable: true, onDelete: 'SET NULL' })
-  //   updatedParameters: Parameter[];
+  // Parametros atualizados pelo usuário
+  @OneToMany((type) => Parameter, (parameter) => parameter.updatedBy, { nullable: true, onDelete: 'SET NULL' })
+  updatedParameters: Parameter[];
 }

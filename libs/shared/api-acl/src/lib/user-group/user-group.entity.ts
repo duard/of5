@@ -1,5 +1,7 @@
 import { Column, Entity, JoinColumn, ManyToMany, ManyToOne, OneToMany } from 'typeorm';
 import { DefaultColumns, BaseMysqlEntity } from '@of5/shared/api-shared';
+import { MemberEntity } from '../member/member.entity';
+import { UserEntity } from '../users/user.entity';
 
 @Entity({ name: 'user_groups' })
 export class UserGroupEntity extends BaseMysqlEntity {
@@ -11,9 +13,6 @@ export class UserGroupEntity extends BaseMysqlEntity {
 
   @Column({ name: 'pass_expiration', type: 'timestamp', comment: 'Data de expiração da senha' })
   passExpiration: Date;
-
-  // @Column({ name: 'updated_at', type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
-  // updatedAt: Date;
 
   @Column({ name: 'pass_change', type: 'boolean', comment: 'Trocar senha? Sim/Não' })
   passChange: boolean;
@@ -30,22 +29,22 @@ export class UserGroupEntity extends BaseMysqlEntity {
   @Column({ name: 'mid_max', type: 'int', comment: 'Numero máximo de janelas MDI' })
   mdiMax: number;
 
-  //   // Usuário que criou o grupo
-  //   @ManyToOne((type) => User, (user) => user.createdGroups, { nullable: true, onDelete: 'SET NULL' })
-  //   @JoinColumn({ name: created_by', referencedColumnName: 'id' })
-  //   createdBy: User;
+  // Usuário que criou o grupo
+  @ManyToOne(() => UserEntity, (user) => user.createdGroups, { nullable: true, onDelete: 'SET NULL' })
+  @JoinColumn({ name: 'created_by', referencedColumnName: 'id' })
+  createdBy: UserEntity;
 
-  //   // Usuário que atualizou o grupo
-  //   @ManyToOne((type) => User, (user) => user.updatedGroups, { nullable: true, onDelete: 'SET NULL' })
-  //   @JoinColumn({ name: updated_by', referencedColumnName: 'id' })
-  //   updatedBy: User;
+  // Usuário que atualizou o grupo
+  @ManyToOne(() => UserEntity, (user) => user.updatedGroups, { nullable: true, onDelete: 'SET NULL' })
+  @JoinColumn({ name: 'updated_by', referencedColumnName: 'id' })
+  updatedBy: UserEntity;
 
   //   @ManyToMany(() => Method, (method) => method.userGroups)
   //   methods: Method[];
 
-  //   // ACL
-  //   @OneToMany((type) => Member, (member) => member.group)
-  //   members: Member[];
+  // ACL
+  @OneToMany(() => MemberEntity, (member) => member.group)
+  members: MemberEntity[];
 
   //   @OneToMany((type) => RoleGroup, (rg) => rg.group)
   //   roleGroups: RoleGroup[];
