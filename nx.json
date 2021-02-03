@@ -21,16 +21,10 @@
     }
   },
   "projects": {
-    "starter-app": {
-      "tags": [],
-      "implicitDependencies": ["shared-assets", "shared-styles"]
-    },
+    "starter-app": { "tags": [], "implicitDependencies": ["shared-assets", "shared-styles"] },
     "starter-app-e2e": { "tags": [], "implicitDependencies": ["starter-app"] },
     "starter-api": { "tags": [] },
-    "cruds-app": {
-      "tags": [],
-      "implicitDependencies": ["shared-assets", "shared-styles"]
-    },
+    "cruds-app": { "tags": [], "implicitDependencies": ["shared-assets", "shared-styles"] },
     "cruds-app-e2e": { "tags": [], "implicitDependencies": ["cruds-app"] },
     "app-shared": { "tags": [] },
     "shared-assets": { "tags": ["scope:shared", "type:assets"] },
@@ -38,6 +32,12 @@
     "shared-environments": { "tags": ["scope:shared", "type:environments"] },
     "shared-data-access": { "tags": ["scope:shared", "type:data-access"] },
     "shared-core": { "tags": ["scope:core", "type:app-core"] },
-    "shared-interfaces": { "tags": ["scope:shared", "type:interfaces"] }
+    "shared-interfaces": { "tags": ["scope:shared", "type:interfaces"] },
+    "api-core": { "tags": [] },
+    "api-shared": { "tags": [] },
+    "shared-app-core": { "tags": ["scope:core", "type:app-core"] },
+    "shared-app-store": { "tags": ["scope:core", "type:app-store"] },
+    "shared-api-core": { "tags": ["scope:core", "type:api-core"] },
+    "shared-api-shared": { "tags": ["scope:core", "type:api-shared"] }
   }
 }
