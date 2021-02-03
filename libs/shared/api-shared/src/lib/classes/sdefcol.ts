@@ -13,6 +13,6 @@ export class DefaultColumns {
   @UpdateDateColumn({ type: 'timestamptz', name: 'deleted_at', comment: 'DATA DE DELEÇÃO' })
   deletedAt: Date;
 
-  @Column({ name: 'bn_status', type: 'boolean', default: true, comment: 'STATUS DO REGISTRO ATIVO/INATIVO' })
+  @Column({ name: 'status', type: 'boolean', default: true, comment: 'STATUS DO REGISTRO ATIVO/INATIVO' })
   status: boolean;
 }
