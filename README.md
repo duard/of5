@@ -1,5 +1,7 @@
 # Basic Workspace for New Projects
 
+[Gráfico de dependencias](dep-graph.jpeg)
+
 #### rodando os projetos
 
 ```

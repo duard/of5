@@ -9,12 +9,12 @@ export class MenuGroupEntity extends BaseMysqlEntity {
   description: string;
 
   // Usuário que criou o grupo de menu
-  @ManyToOne((type) => UserEntity, (user) => user.createdMenuGroup, { nullable: true, onDelete: 'SET NULL' })
+  @ManyToOne(() => UserEntity, (user) => user.createdMenuGroup, { nullable: true, onDelete: 'SET NULL' })
   @JoinColumn({ name: 'created_by', referencedColumnName: 'id' })
   createdBy: UserEntity;
 
   // Usuário que atualizou o grupo de menu
-  @ManyToOne((type) => UserEntity, (user) => user.updatedMenuGroup, { nullable: true, onDelete: 'SET NULL' })
+  @ManyToOne(() => UserEntity, (user) => user.updatedMenuGroup, { nullable: true, onDelete: 'SET NULL' })
   @JoinColumn({ name: 'updated_by', referencedColumnName: 'id' })
   updatedBy: UserEntity;
 }
