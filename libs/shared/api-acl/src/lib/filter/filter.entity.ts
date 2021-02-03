@@ -1,10 +1,10 @@
 import { Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
-import { RoleFilter } from './role-filter.entity';
-import { Screen } from './screen.entity';
+import { RoleFilterEntity } from '../role-filter/role-filter.entity';
+import { ScreenEntity } from '../screen/screen.entity';
 
 @Entity({ name: 'filter' })
-export class Filter {
-  constructor(partialFilter?: Partial<Filter>) {
+export class FilterEntity {
+  constructor(partialFilter?: Partial<FilterEntity>) {
     this.fieldName = partialFilter?.fieldName;
     this.operation = partialFilter?.operation;
     this.screen = partialFilter?.screen;
@@ -23,9 +23,9 @@ export class Filter {
   @Column({ nullable: true })
   value: string;
 
-  @ManyToOne((type) => Screen, (screen) => screen.filters)
-  screen: Screen;
+  @ManyToOne((type) => ScreenEntity, (screen) => screen.filters)
+  screen: ScreenEntity;
 
-  @OneToMany((type) => RoleFilter, (roleFilter) => roleFilter.filter, { onDelete: 'CASCADE' })
-  roleFilters: RoleFilter[];
+  @OneToMany((type) => RoleFilterEntity, (roleFilter) => roleFilter.filter, { onDelete: 'CASCADE' })
+  roleFilters: RoleFilterEntity[];
 }

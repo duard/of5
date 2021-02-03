@@ -1,8 +1,10 @@
 import { BaseMysqlEntity } from '@of5/shared/api-shared';
-import { Column, Entity } from 'typeorm';
+import { Column, Entity, JoinColumn, ManyToOne } from 'typeorm';
+
+import { UserEntity } from '../users/user.entity';
 
 @Entity({ name: 'parameters' })
-export class Parameter extends BaseMysqlEntity {
+export class ParameterEntity extends BaseMysqlEntity {
   @Column({ name: 'DESCRIPTION', type: 'varchar', nullable: true, comment: 'Descrição' })
   description: string;
 
@@ -15,13 +17,13 @@ export class Parameter extends BaseMysqlEntity {
   @Column({ name: 'OLD_VALUE', type: 'varchar', comment: 'Valor anterior', nullable: true })
   oldValue: string;
 
-  // // Usuário que criou o parametro
-  // @ManyToOne((type) => User, (user) => user.createdParameters, { nullable: true, onDelete: 'SET NULL' })
-  // @JoinColumn({ name: created_by', referencedColumnName: 'id' })
-  // createdBy: User;
+  // Usuário que criou o parametro
+  @ManyToOne((type) => UserEntity, (user) => user.createdParameters, { nullable: true, onDelete: 'SET NULL' })
+  @JoinColumn({ name: 'created_by', referencedColumnName: 'id' })
+  createdBy: UserEntity;
 
-  // // Usuário que atualizou o parametro
-  // @ManyToOne((type) => User, (user) => user.updatedParameters, { nullable: true, onDelete: 'SET NULL' })
-  // @JoinColumn({ name: updated_by', referencedColumnName: 'id' })
-  // updatedBy: User;
+  // Usuário que atualizou o parametro
+  @ManyToOne((type) => UserEntity, (user) => user.updatedParameters, { nullable: true, onDelete: 'SET NULL' })
+  @JoinColumn({ name: 'updated_by', referencedColumnName: 'id' })
+  updatedBy: UserEntity;
 }

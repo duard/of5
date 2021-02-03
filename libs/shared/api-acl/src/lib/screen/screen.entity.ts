@@ -1,12 +1,13 @@
-import { SCREEN_TYPE } from 'src/enums/acl/screen-type.enum';
-import { Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn, Tree, TreeChildren, TreeParent } from 'typeorm';
-import { ActionScreen } from './action-screen.entity';
-import { Filter } from './filter.entity';
-import { RoleScreen } from './role-screen.entity';
+import { SCREEN_TYPE } from '@of5/shared/api-shared';
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn, Tree, TreeChildren, TreeParent } from 'typeorm';
+
+import { ActionScreenEntity } from '../action-screen/action-screen.entity';
+import { FilterEntity } from '../filter/filter.entity';
+import { RoleScreenEntity } from '../role-screen/role-screen.entity';
 
 @Entity({ name: 'screen' })
 @Tree('nested-set')
-export class Screen {
+export class ScreenEntity {
   @PrimaryGeneratedColumn()
   screenId: number;
 
@@ -25,8 +26,8 @@ export class Screen {
   @Column({ nullable: true })
   icon: string;
 
-  @OneToMany((type) => RoleScreen, (roleScreen) => roleScreen.screen, { onDelete: 'CASCADE' })
-  roleScreens: RoleScreen[];
+  @OneToMany((type) => RoleScreenEntity, (roleScreen) => roleScreen.screen, { onDelete: 'CASCADE' })
+  roleScreens: RoleScreenEntity[];
 
   @TreeChildren({ cascade: true })
   children: Screen[];
@@ -34,9 +35,9 @@ export class Screen {
   @TreeParent()
   parent: Screen;
 
-  @OneToMany((type) => ActionScreen, (as) => as.screen, { onDelete: 'CASCADE' })
-  actionsScreen: ActionScreen[];
+  @OneToMany((type) => ActionScreenEntity, (as) => as.screen, { onDelete: 'CASCADE' })
+  actionsScreen: ActionScreenEntity[];
 
-  @OneToMany((type) => Filter, (filter) => filter.screen)
-  filters: Filter[];
+  @OneToMany((type) => FilterEntity, (filter) => filter.screen)
+  filters: FilterEntity[];
 }

@@ -1,8 +1,9 @@
 import { BaseMysqlEntity } from '@of5/shared/api-shared';
 import { Column, Entity, JoinColumn, ManyToOne } from 'typeorm';
+import { UserEntity } from '../users/user.entity';
 
 @Entity()
-export class Account extends BaseMysqlEntity {
+export class AccountEntity extends BaseMysqlEntity {
   @Column({ name: 'description', type: 'varchar', comment: 'Descrição' })
   description: string;
 
@@ -18,13 +19,13 @@ export class Account extends BaseMysqlEntity {
   @Column({ name: 'password', type: 'varchar', comment: 'Senha da conta' })
   password: string;
 
-  //   // Usuário que criou a conta
-  //   @ManyToOne((type) => User, (user) => user.createdAccounts, { nullable: true, onDelete: 'SET NULL' })
-  //   @JoinColumn({ name: created_by', referencedColumnName: 'id' })
-  //   createdBy: User;
+  // Usuário que criou a conta
+  @ManyToOne(() => UserEntity, (user) => user.createdAccounts, { nullable: true, onDelete: 'SET NULL' })
+  @JoinColumn({ name: 'created_by', referencedColumnName: 'id' })
+  createdBy: UserEntity;
 
-  //   // Usuário que atualizou a conta
-  //   @ManyToOne((type) => User, (user) => user.updatedAccounts, { nullable: true, onDelete: 'SET NULL' })
-  //   @JoinColumn({ name: updated_by', referencedColumnName: 'id' })
-  //   updatedBy: User;
+  // Usuário que atualizou a conta
+  @ManyToOne(() => UserEntity, (user) => user.updatedAccounts, { nullable: true, onDelete: 'SET NULL' })
+  @JoinColumn({ name: 'updated_by', referencedColumnName: 'id' })
+  updatedBy: UserEntity;
 }

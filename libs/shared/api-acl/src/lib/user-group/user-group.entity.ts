@@ -1,6 +1,9 @@
+import { BaseMysqlEntity } from '@of5/shared/api-shared';
 import { Column, Entity, JoinColumn, ManyToMany, ManyToOne, OneToMany } from 'typeorm';
-import { DefaultColumns, BaseMysqlEntity } from '@of5/shared/api-shared';
+
 import { MemberEntity } from '../member/member.entity';
+import { MethodEntity } from '../method/method.entity';
+import { RoleGroupEntity } from '../role-group/roule-group.entity';
 import { UserEntity } from '../users/user.entity';
 
 @Entity({ name: 'user_groups' })
@@ -39,13 +42,13 @@ export class UserGroupEntity extends BaseMysqlEntity {
   @JoinColumn({ name: 'updated_by', referencedColumnName: 'id' })
   updatedBy: UserEntity;
 
-  //   @ManyToMany(() => Method, (method) => method.userGroups)
-  //   methods: Method[];
+  @ManyToMany(() => MethodEntity, (method) => method.userGroups)
+  methods: MethodEntity[];
 
   // ACL
   @OneToMany(() => MemberEntity, (member) => member.group)
   members: MemberEntity[];
 
-  //   @OneToMany((type) => RoleGroup, (rg) => rg.group)
-  //   roleGroups: RoleGroup[];
+  @OneToMany((type) => RoleGroupEntity, (rg) => rg.group)
+  roleGroups: RoleGroupEntity[];
 }

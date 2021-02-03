@@ -1,26 +1,27 @@
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
-import { RoleAction } from './role-action.entity';
-import { RoleFilter } from './role-filter.entity';
-import { RoleScreen } from './role-screen.entity';
-import { RoleGroup } from './roule-group.entity';
+
+import { RoleActionEntity } from '../role-action/role-action.entity';
+import { RoleFilterEntity } from '../role-filter/role-filter.entity';
+import { RoleGroupEntity } from '../role-group/roule-group.entity';
+import { RoleScreenEntity } from '../role-screen/role-screen.entity';
 
 @Entity({ name: 'role' })
-export class Role {
+export class RoleEntity {
   @PrimaryGeneratedColumn()
   roleId: number;
 
   @Column()
   name: string;
 
-  @OneToMany((type) => RoleGroup, (rg) => rg.role, { onDelete: 'CASCADE' })
-  roleGroups: RoleGroup[];
+  @OneToMany((type) => RoleGroupEntity, (rg) => rg.role, { onDelete: 'CASCADE' })
+  roleGroups: RoleGroupEntity[];
 
-  @OneToMany((type) => RoleScreen, (rs) => rs.role, { onDelete: 'CASCADE' })
-  roleScreens: RoleScreen[];
+  @OneToMany((type) => RoleScreenEntity, (rs) => rs.role, { onDelete: 'CASCADE' })
+  roleScreens: RoleScreenEntity[];
 
-  @OneToMany((type) => RoleAction, (ra) => ra.role, { onDelete: 'CASCADE' })
-  roleActions: RoleAction[];
+  @OneToMany((type) => RoleActionEntity, (ra) => ra.role, { onDelete: 'CASCADE' })
+  roleActions: RoleActionEntity[];
 
-  @OneToMany((type) => RoleFilter, (roleFilter) => roleFilter.role, { onDelete: 'CASCADE' })
-  roleFilters: RoleFilter;
+  @OneToMany((type) => RoleFilterEntity, (roleFilter) => roleFilter.role, { onDelete: 'CASCADE' })
+  roleFilters: RoleFilterEntity;
 }

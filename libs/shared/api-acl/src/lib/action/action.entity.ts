@@ -1,10 +1,11 @@
-import { ACTION_TYPE } from 'src/enums/acl/action-type.enum';
+import { ACTION_TYPE } from '@of5/shared/api-shared';
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
-import { ActionScreen } from './action-screen.entity';
-import { RoleAction } from './role-action.entity';
+
+import { ActionScreenEntity } from '../action-screen/action-screen.entity';
+import { RoleAction } from '../role-action/role-action.entity';
 
 @Entity({ name: 'action' })
-export class Action {
+export class ActionEntity {
   @PrimaryGeneratedColumn()
   actionId: number;
 
@@ -23,6 +24,6 @@ export class Action {
   @OneToMany((type) => RoleAction, (roleAction) => roleAction.action)
   roleActions: RoleAction[];
 
-  @OneToMany((type) => ActionScreen, (as) => as.action)
-  actionsScreen: ActionScreen[];
+  @OneToMany((type) => ActionScreenEntity, (as) => as.action)
+  actionsScreen: ActionScreenEntity[];
 }
