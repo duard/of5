@@ -21,8 +21,8 @@ export class HydrationEffects implements OnInitEffects {
           }
         }
         return HydrationActions.hydrateFailure();
-      }),
-    ),
+      })
+    )
   );
 
   serialize$ = createEffect(
@@ -31,9 +31,9 @@ export class HydrationEffects implements OnInitEffects {
         ofType(HydrationActions.hydrateSuccess, HydrationActions.hydrateFailure),
         switchMap(() => this.store),
         distinctUntilChanged(),
-        tap((state) => localStorage.setItem('of5-state', JSON.stringify(state))),
+        tap((state) => localStorage.setItem('of5-state', JSON.stringify(state)))
       ),
-    { dispatch: false },
+    { dispatch: false }
   );
 
   constructor(private action$: Actions, private store: Store<RootState>, private ngZone: NgZone) {}

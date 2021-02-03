@@ -4,7 +4,7 @@ import * as thisActions from './meta-reducers';
 import { reset } from './meta-reducers';
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'root'
 })
 export class StoreFacade {
   constructor(private store$: Store, private ngZone: NgZone) {}

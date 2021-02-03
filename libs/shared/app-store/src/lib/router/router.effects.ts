@@ -11,9 +11,9 @@ export class RouterEffects {
     () =>
       this.action$.pipe(
         ofType(routerNavigatedAction),
-        tap((action) => this.analytics.trackPageView(action.payload.routerState.url)),
+        tap((action) => this.analytics.trackPageView(action.payload.routerState.url))
       ),
-    { dispatch: false },
+    { dispatch: false }
   );
 
   constructor(private action$: Actions, private analytics: AnalyticService) {}

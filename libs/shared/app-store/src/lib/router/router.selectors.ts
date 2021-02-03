@@ -11,5 +11,5 @@ export const {
   selectRouteParams,
   selectRouteParam,
   selectRouteData,
-  selectUrl,
+  selectUrl
 } = getSelectors(selectFeature);

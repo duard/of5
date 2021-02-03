@@ -7,10 +7,10 @@ export const navigationReducer = createReducer(
   initialState,
   on(routerRequestAction, (state) => ({
     ...state,
-    loading: true,
+    loading: true
   })),
   on(routerNavigatedAction, routerErrorAction, routerCancelAction, (state) => ({
     ...state,
-    loading: false,
-  })),
+    loading: false
+  }))
 );

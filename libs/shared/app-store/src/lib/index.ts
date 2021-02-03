@@ -16,7 +16,7 @@ export interface RootState {
 export const reducers: ActionReducerMap<RootState> = {
   settings: settingsReducer,
   navigation: navigationReducer,
-  router: routerReducer,
+  router: routerReducer
 };
 
 export const metaReducers: MetaReducer[] = [

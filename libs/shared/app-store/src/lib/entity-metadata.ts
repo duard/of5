@@ -6,9 +6,9 @@ const pluralNames = { Cargos: 'Cargos', Profiles: 'Profiles', Menus: 'Menus' };
 
 export const entityConfig: EntityDataModuleConfig = {
   entityMetadata,
-  pluralNames,
+  pluralNames
 };
 
 export const defaultDataServiceConfig: DefaultDataServiceConfig = {
-  entityHttpResourceUrls: {},
+  entityHttpResourceUrls: {}
 };

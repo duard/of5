@@ -3,7 +3,7 @@ import { AppStoreModule } from '@of5/shared/app-store';
 import { environment } from '@of5/shared/environments';
 
 @NgModule({
-  imports: [AppStoreModule.forRoot()],
+  imports: [AppStoreModule.forRoot()]
 })
 export class AppCoreModule {
   isDev = !environment.production;
@@ -11,7 +11,7 @@ export class AppCoreModule {
   constructor(
     @Optional()
     @SkipSelf()
-    parentModule?: AppCoreModule,
+    parentModule?: AppCoreModule
   ) {
     if (this.isDev) {
       console.log('isDev', this.isDev);

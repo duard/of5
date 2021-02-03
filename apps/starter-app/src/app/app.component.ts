@@ -3,7 +3,7 @@ import { Component } from '@angular/core';
 @Component({
   selector: 'of5-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss'],
+  styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
   title = 'starter-app';

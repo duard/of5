@@ -5,5 +5,5 @@ export interface NavigationState {
 
 export const initialState: NavigationState = {
   loading: false,
-  teste: false,
+  teste: false
 };

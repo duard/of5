@@ -49,12 +49,12 @@ nx generate @nrwl/nest:library api-shared
 If you're using VS Code it may be necessary at this point to restart the TS server so that the new @myorg/data package is recognised. This may need to be done every time a new workspace library is added.
 
 #### bom guia para NX
+
 https://duncanhunter.gitbook.io/enterprise-angular-applications-with-ngrx-and-nx/introduction/3-generating-components-and-nx-lib
 
 #### sobre o uso do git e commits
 
-https://dev.to/bhargavmantha/the-secret-to-configuring-eslint-prettier-prettier-eslint-plugin-in-vscode-for-angular-ts-and-js-project-51la
-https://beeman.dev/posts/set-up-and-configure-a-new-nx-workspace-1oh6/
+https://dev.to/bhargavmantha/the-secret-to-configuring-eslint-prettier-prettier-eslint-plugin-in-vscode-for-angular-ts-and-js-project-51la https://beeman.dev/posts/set-up-and-configure-a-new-nx-workspace-1oh6/
 
 #### configurando shareds para todos os projetos
 

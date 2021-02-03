@@ -14,17 +14,17 @@ import { DatabaseConfig } from './database.config';
     ApiCoreModule,
     ConfigModule.forRoot({
       isGlobal: true,
-      load: [config],
+      load: [config]
     }),
 
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],
-      useClass: DatabaseConfig,
+      useClass: DatabaseConfig
     }),
 
-    ApiAclModule,
+    ApiAclModule
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [AppService]
 })
 export class AppModule {}

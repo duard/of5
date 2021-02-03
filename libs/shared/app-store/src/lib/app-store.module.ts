@@ -30,8 +30,8 @@ const RouterStateMinimal = 1;
         strictActionTypeUniqueness: isDevMode(),
         strictActionWithinNgZone: isDevMode(),
         strictStateImmutability: isDevMode(),
-        strictStateSerializability: false,
-      },
+        strictStateSerializability: false
+      }
     }),
     EffectsModule.forRoot([HydrationEffects, RouterEffects, SettingsEffects]),
     StoreRouterConnectingModule.forRoot({ routerState: RouterStateMinimal }),
@@ -41,8 +41,8 @@ const RouterStateMinimal = 1;
       ? []
       : StoreDevtoolsModule.instrument({
           name: 'OF5 Store',
-          maxAge: 36,
-        }),
+          maxAge: 36
+        })
   ],
   providers: [
     /*
@@ -50,13 +50,13 @@ const RouterStateMinimal = 1;
     */
     {
       provide: PersistenceResultHandler,
-      useClass: AdditionalPersistenceResultHandler,
+      useClass: AdditionalPersistenceResultHandler
     },
     {
       provide: EntityCollectionReducerMethodsFactory,
-      useClass: AdditionalEntityCollectionReducerMethodsFactory,
-    },
-  ],
+      useClass: AdditionalEntityCollectionReducerMethodsFactory
+    }
+  ]
 })
 export class AppStoreRootModule {
   constructor() {
@@ -68,7 +68,7 @@ export class AppStoreRootModule {
 export class AppStoreModule {
   static forRoot(): ModuleWithProviders<AppStoreRootModule> {
     return {
-      ngModule: AppStoreRootModule,
+      ngModule: AppStoreRootModule
     };
   }
 }

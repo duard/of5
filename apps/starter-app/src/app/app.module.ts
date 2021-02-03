@@ -9,6 +9,6 @@ import { AppComponent } from './app.component';
   declarations: [AppComponent],
   imports: [BrowserModule, AppCoreModule, RouterModule.forRoot([], { initialNavigation: 'enabled' })],
   providers: [],
-  bootstrap: [AppComponent],
+  bootstrap: [AppComponent]
 })
 export class AppModule {}

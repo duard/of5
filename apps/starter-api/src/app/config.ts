@@ -23,12 +23,12 @@ export const config = () => ({
       join(__dirname, './**/*.entity{.ts,.js}'),
       '../../../../../libs/lib-api-cruds/src/lib/*.entity{.ts,.js}',
       'src/**/**.entity{.ts,.js}',
-      '../../../../libs/api-pessoas/src/lib/*.entity{.ts,.js}',
+      '../../../../libs/api-pessoas/src/lib/*.entity{.ts,.js}'
     ],
     // logging: 'all',
     autoLoadEntities: true,
-    logging: false,
-  },
+    logging: false
+  }
 });
 
 /*

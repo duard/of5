@@ -46,7 +46,7 @@ export class ApiLoggerMiddleware implements NestMiddleware {
       }
 
       this.logger.log(
-        `${method} ${statusCode} ${referer} ${url}  - ${contentLength} - ${ip} [${hostname}] ${userAgent} `,
+        `${method} ${statusCode} ${referer} ${url}  - ${contentLength} - ${ip} [${hostname}] ${userAgent} `
       );
       if (this.isDev) {
         console.log(
@@ -75,7 +75,7 @@ export class ApiLoggerMiddleware implements NestMiddleware {
           chalk.hex('#CD853F').bold('QUERY ' + JSON.stringify(request.query)),
           '\n',
           chalk.hex('#000000').bgHex('#FFFFFF')('=>'),
-          chalk.hex('#CD853F').bold('BODY ' + JSON.stringify(request.body)),
+          chalk.hex('#CD853F').bold('BODY ' + JSON.stringify(request.body))
         );
       }
     });

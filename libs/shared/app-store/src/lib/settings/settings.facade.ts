@@ -5,7 +5,7 @@ import * as thisActions from './settings.actions';
 import * as fromSelector from './settings.selectors';
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'root'
 })
 export class SettingsFacade {
   selectSidenav$ = this.store$.select(fromSelector.selectSettingsSideNav);
