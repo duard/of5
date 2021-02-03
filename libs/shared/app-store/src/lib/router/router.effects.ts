@@ -1,9 +1,9 @@
-import { Injectable } from '@angular/core';
-import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { routerNavigatedAction } from '@ngrx/router-store';
-import { tap } from 'rxjs/operators';
+import { Injectable } from '@angular/core'
+import { Actions, createEffect, ofType } from '@ngrx/effects'
+import { routerNavigatedAction } from '@ngrx/router-store'
+import { tap } from 'rxjs/operators'
 
-import { AnalyticService } from './../services/analytic.service';
+import { AnalyticService } from './../services/analytic.service'
 
 @Injectable()
 export class RouterEffects {
@@ -11,12 +11,10 @@ export class RouterEffects {
     () =>
       this.action$.pipe(
         ofType(routerNavigatedAction),
-        tap((action) =>
-          this.analytics.trackPageView(action.payload.routerState.url)
-        )
+        tap((action) => this.analytics.trackPageView(action.payload.routerState.url)),
       ),
-    { dispatch: false }
-  );
+    { dispatch: false },
+  )
 
   constructor(private action$: Actions, private analytics: AnalyticService) {}
 }

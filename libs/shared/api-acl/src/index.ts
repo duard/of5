@@ -1,1 +1,1 @@
-export * from './lib/api-acl.module';
+export * from './lib/api-acl.module'

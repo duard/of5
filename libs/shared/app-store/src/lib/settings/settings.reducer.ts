@@ -1,4 +1,4 @@
-import { Action, createReducer, on } from '@ngrx/store';
+import { Action, createReducer, on } from '@ngrx/store'
 
 import {
   actionPushMenu,
@@ -10,25 +10,25 @@ import {
   actionSettingsChangeLanguage,
   actionSettingsChangeSideNav,
   actionSettingsChangeStickyHeader,
-  actionSettingsChangeTheme
-} from './settings.actions';
+  actionSettingsChangeTheme,
+} from './settings.actions'
 
-export const NIGHT_MODE_THEME = 'BLACK-THEME';
+export const NIGHT_MODE_THEME = 'BLACK-THEME'
 
-export type Language = 'en' | 'sk' | 'de' | 'fr' | 'es' | 'pt-br' | 'he';
+export type Language = 'en' | 'sk' | 'de' | 'fr' | 'es' | 'pt-br' | 'he'
 
 export interface SettingsState {
-  sideNav: boolean;
-  language: string;
-  theme: string;
-  autoNightMode: boolean;
-  nightTheme: string;
-  stickyHeader: boolean;
-  pageAnimations: boolean;
-  pageAnimationsDisabled: boolean;
-  elementsAnimations: boolean;
-  hour: number;
-  menus: any;
+  sideNav: boolean
+  language: string
+  theme: string
+  autoNightMode: boolean
+  nightTheme: string
+  stickyHeader: boolean
+  pageAnimations: boolean
+  pageAnimationsDisabled: boolean
+  elementsAnimations: boolean
+  hour: number
+  menus: any
 }
 
 export const initialState: SettingsState = {
@@ -42,8 +42,8 @@ export const initialState: SettingsState = {
   pageAnimationsDisabled: false,
   elementsAnimations: true,
   hour: 0,
-  menus: null
-};
+  menus: null,
+}
 
 const reducer = createReducer(
   initialState,
@@ -56,12 +56,12 @@ const reducer = createReducer(
     actionSettingsChangeAnimationsElements,
     actionSettingsChangeHour,
     // actionSettingsChangeSideNav,
-    (state, action) => ({ ...state, ...action })
+    (state, action) => ({ ...state, ...action }),
   ),
   on(actionSettingsChangeAnimationsPageDisabled, (state, { pageAnimationsDisabled }) => ({
     ...state,
     pageAnimationsDisabled,
-    pageAnimations: false
+    pageAnimations: false,
   })),
   // on(actionSettingsChangeSideNav, (state, { sideNav }) => ({
   //   ...state,
@@ -69,7 +69,7 @@ const reducer = createReducer(
   // })),
   on(actionSettingsChangeSideNav, (state, { sideNav }) => ({
     ...state,
-    sideNav: sideNav
+    sideNav: sideNav,
   })),
   // on(actionPushMenu, (state, { menus}) => ({
   //   ...state,
@@ -77,14 +77,14 @@ const reducer = createReducer(
   // })),
 
   on(actionPushMenu, (state, { menus }) => {
-    console.log('reducer', typeof menus);
+    console.log('reducer', typeof menus)
     //  menus.map(item => Object.assign({}, item, { selected: false }));
     // state.menus = ['menu1', 'menu2'];
 
-    return { ...state, menus };
-  })
-);
+    return { ...state, menus }
+  }),
+)
 
 export function settingsReducer(state: SettingsState | undefined, action: Action) {
-  return reducer(state, action);
+  return reducer(state, action)
 }

@@ -14,5 +14,5 @@ export const environment = {
 
   API_PORT: 3333,
   API_HOST: 'localhost',
-  JWT_SECRET: 'secredinhos 3D'
-};
+  JWT_SECRET: 'secredinhos 3D',
+}

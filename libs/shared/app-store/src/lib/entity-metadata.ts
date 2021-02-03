@@ -1,19 +1,14 @@
-import { DefaultDataServiceConfig, EntityDataModuleConfig, EntityMetadataMap } from '@ngrx/data';
+import { DefaultDataServiceConfig, EntityDataModuleConfig, EntityMetadataMap } from '@ngrx/data'
 
+const entityMetadata: EntityMetadataMap = {}
 
-const entityMetadata: EntityMetadataMap = {
-
-};
-
-const pluralNames = { Cargos: 'Cargos', Profiles: 'Profiles', Menus: 'Menus' };
+const pluralNames = { Cargos: 'Cargos', Profiles: 'Profiles', Menus: 'Menus' }
 
 export const entityConfig: EntityDataModuleConfig = {
   entityMetadata,
-  pluralNames
-};
+  pluralNames,
+}
 
 export const defaultDataServiceConfig: DefaultDataServiceConfig = {
-  entityHttpResourceUrls: {
-
-  }
-};
+  entityHttpResourceUrls: {},
+}

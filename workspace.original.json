@@ -16,13 +16,8 @@
             "polyfills": "apps/starter-app/src/polyfills.ts",
             "tsConfig": "apps/starter-app/tsconfig.app.json",
             "aot": true,
-            "assets": [
-              "apps/starter-app/src/favicon.ico",
-              "apps/starter-app/src/assets"
-            ],
-            "styles": [
-              "apps/starter-app/src/styles.scss"
-            ],
+            "assets": ["apps/starter-app/src/favicon.ico", "apps/starter-app/src/assets"],
+            "styles": ["apps/starter-app/src/styles.scss"],
             "scripts": []
           },
           "configurations": {
@@ -75,17 +70,12 @@
         "lint": {
           "executor": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "apps/starter-app/src/**/*.ts",
-              "apps/starter-app/src/**/*.html"
-            ]
+            "lintFilePatterns": ["apps/starter-app/src/**/*.ts", "apps/starter-app/src/**/*.html"]
           }
         },
         "test": {
           "executor": "@nrwl/jest:jest",
-          "outputs": [
-            "coverage/apps/starter-app"
-          ],
+          "outputs": ["coverage/apps/starter-app"],
           "options": {
             "jestConfig": "apps/starter-app/jest.config.js",
             "passWithNoTests": true
@@ -114,9 +104,7 @@
         "lint": {
           "executor": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "apps/starter-app-e2e/**/*.{js,ts}"
-            ]
+            "lintFilePatterns": ["apps/starter-app-e2e/**/*.{js,ts}"]
           }
         }
       }
@@ -129,16 +117,12 @@
       "targets": {
         "build": {
           "executor": "@nrwl/node:build",
-          "outputs": [
-            "{options.outputPath}"
-          ],
+          "outputs": ["{options.outputPath}"],
           "options": {
             "outputPath": "dist/apps/starter-api",
             "main": "apps/starter-api/src/main.ts",
             "tsConfig": "apps/starter-api/tsconfig.app.json",
-            "assets": [
-              "apps/starter-api/src/assets"
-            ]
+            "assets": ["apps/starter-api/src/assets"]
           },
           "configurations": {
             "production": {
@@ -163,16 +147,12 @@
         "lint": {
           "executor": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "apps/starter-api/**/*.ts"
-            ]
+            "lintFilePatterns": ["apps/starter-api/**/*.ts"]
           }
         },
         "test": {
           "executor": "@nrwl/jest:jest",
-          "outputs": [
-            "coverage/apps/starter-api"
-          ],
+          "outputs": ["coverage/apps/starter-api"],
           "options": {
             "jestConfig": "apps/starter-api/jest.config.js",
             "passWithNoTests": true
@@ -195,13 +175,8 @@
             "polyfills": "apps/cruds-app/src/polyfills.ts",
             "tsConfig": "apps/cruds-app/tsconfig.app.json",
             "aot": true,
-            "assets": [
-              "apps/cruds-app/src/favicon.ico",
-              "apps/cruds-app/src/assets"
-            ],
-            "styles": [
-              "apps/cruds-app/src/styles.scss"
-            ],
+            "assets": ["apps/cruds-app/src/favicon.ico", "apps/cruds-app/src/assets"],
+            "styles": ["apps/cruds-app/src/styles.scss"],
             "scripts": []
           },
           "configurations": {
@@ -254,17 +229,12 @@
         "lint": {
           "executor": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "apps/cruds-app/src/**/*.ts",
-              "apps/cruds-app/src/**/*.html"
-            ]
+            "lintFilePatterns": ["apps/cruds-app/src/**/*.ts", "apps/cruds-app/src/**/*.html"]
           }
         },
         "test": {
           "executor": "@nrwl/jest:jest",
-          "outputs": [
-            "coverage/apps/cruds-app"
-          ],
+          "outputs": ["coverage/apps/cruds-app"],
           "options": {
             "jestConfig": "apps/cruds-app/jest.config.js",
             "passWithNoTests": true
@@ -293,9 +263,7 @@
         "lint": {
           "executor": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "apps/cruds-app-e2e/**/*.{js,ts}"
-            ]
+            "lintFilePatterns": ["apps/cruds-app-e2e/**/*.{js,ts}"]
           }
         }
       }
@@ -309,17 +277,12 @@
         "lint": {
           "executor": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "libs/app-shared/src/**/*.ts",
-              "libs/app-shared/src/**/*.html"
-            ]
+            "lintFilePatterns": ["libs/app-shared/src/**/*.ts", "libs/app-shared/src/**/*.html"]
           }
         },
         "test": {
           "executor": "@nrwl/jest:jest",
-          "outputs": [
-            "coverage/libs/app-shared"
-          ],
+          "outputs": ["coverage/libs/app-shared"],
           "options": {
             "jestConfig": "libs/app-shared/jest.config.js",
             "passWithNoTests": true
@@ -336,17 +299,12 @@
         "lint": {
           "executor": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "libs/shared/assets/src/**/*.ts",
-              "libs/shared/assets/src/**/*.html"
-            ]
+            "lintFilePatterns": ["libs/shared/assets/src/**/*.ts", "libs/shared/assets/src/**/*.html"]
           }
         },
         "test": {
           "executor": "@nrwl/jest:jest",
-          "outputs": [
-            "coverage/libs/shared/assets"
-          ],
+          "outputs": ["coverage/libs/shared/assets"],
           "options": {
             "jestConfig": "libs/shared/assets/jest.config.js",
             "passWithNoTests": true
