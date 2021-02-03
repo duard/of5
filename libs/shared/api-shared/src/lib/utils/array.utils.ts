@@ -1,12 +1,12 @@
 export function groupBy(data: any[], key: string, deleteKey?: boolean) {
   return data
-    .map(item => item[key])
+    .map((item) => item[key])
     .filter((item, i, ar) => ar.indexOf(item) === i)
     .sort((a, b) => a - b)
-    .map(item => {
+    .map((item) => {
       const items = data
-        .filter(res => res[key] === item)
-        .map(res => {
+        .filter((res) => res[key] === item)
+        .map((res) => {
           if (deleteKey) {
             delete res[key];
           }
@@ -19,13 +19,13 @@ export function groupBy(data: any[], key: string, deleteKey?: boolean) {
 
 export function groupBy2(data: any[], key: string, deleteKey?: boolean) {
   return data
-    .map(item => item[key])
+    .map((item) => item[key])
     .filter((item, i, ar) => ar.indexOf(item) === i)
     .sort((a, b) => a - b)
-    .map(item => {
+    .map((item) => {
       const items = data
-        .filter(res => res[key] === item)
-        .map(res => {
+        .filter((res) => res[key] === item)
+        .map((res) => {
           if (deleteKey) {
             delete res[key];
           }

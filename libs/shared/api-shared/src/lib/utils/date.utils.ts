@@ -53,7 +53,7 @@ export function dayWeekByIndex(index) {
 
 export function indexByDayWeek(dayWeek) {
   const w = ['Segunda-feira', 'Terça-feira', 'Quarta-feira', 'Quinta-feira', 'Sexta-feira', 'Sábado', 'Domingo'];
-  return w.findIndex(item => item === dayWeek) - 1;
+  return w.findIndex((item) => item === dayWeek) - 1;
 }
 
 export function getRange(startDate, endDate, type) {

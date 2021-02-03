@@ -59,3 +59,9 @@ https://dev.to/bhargavmantha/the-secret-to-configuring-eslint-prettier-prettier-
 #### configurando shareds para todos os projetos
 
 https://indepth.dev/posts/1185/tiny-angular-application-projects-in-nx-workspaces
+
+
+#### nada passará 
+```
+nx format:write --all 
+```
