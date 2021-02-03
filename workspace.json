@@ -17,11 +17,20 @@
             "tsConfig": "apps/starter-app/tsconfig.app.json",
             "aot": true,
             "assets": [
-              "apps/starter-app/src/favicon.ico",
-              "apps/starter-app/src/assets"
+              {
+                "glob": "favicon.ico",
+                "input": "libs/shared/assets/src",
+                "output": "./"
+              },
+              {
+                "glob": "**/*",
+                "input": "libs/shared/assets/src/assets",
+                "output": "assets"
+              }
             ],
             "styles": [
-              "apps/starter-app/src/styles.scss"
+              "apps/starter-app/src/styles.scss",
+              "libs/shared/styles/src/index.scss"
             ],
             "scripts": []
           },
@@ -29,8 +38,8 @@
             "production": {
               "fileReplacements": [
                 {
-                  "replace": "apps/starter-app/src/environments/environment.ts",
-                  "with": "apps/starter-app/src/environments/environment.prod.ts"
+                  "replace": "libs/shared/environments/src/lib/environment.ts",
+                  "with": "libs/shared/environments/src/lib/environment.prod.ts"
                 }
               ],
               "optimization": true,
@@ -91,7 +100,11 @@
             "passWithNoTests": true
           }
         }
-      }
+      },
+      "implicitDependencies": [
+        "shared-assets",
+        "shared-styles"
+      ]
     },
     "starter-app-e2e": {
       "root": "apps/starter-app-e2e",
@@ -147,8 +160,8 @@
               "inspect": false,
               "fileReplacements": [
                 {
-                  "replace": "apps/starter-api/src/environments/environment.ts",
-                  "with": "apps/starter-api/src/environments/environment.prod.ts"
+                  "replace": "libs/shared/environments/src/lib/environment.ts",
+                  "with": "libs/shared/environments/src/lib/environment.prod.ts"
                 }
               ]
             }
@@ -175,6 +188,257 @@
           ],
           "options": {
             "jestConfig": "apps/starter-api/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      },
+      "implicitDependencies": [
+        "shared-assets",
+        "shared-styles"
+      ]
+    },
+    "cruds-app": {
+      "projectType": "application",
+      "root": "apps/cruds-app",
+      "sourceRoot": "apps/cruds-app/src",
+      "prefix": "of5",
+      "targets": {
+        "build": {
+          "executor": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/apps/cruds-app",
+            "index": "apps/cruds-app/src/index.html",
+            "main": "apps/cruds-app/src/main.ts",
+            "polyfills": "apps/cruds-app/src/polyfills.ts",
+            "tsConfig": "apps/cruds-app/tsconfig.app.json",
+            "aot": true,
+            "assets": [
+              {
+                "glob": "favicon.ico",
+                "input": "libs/shared/assets/src",
+                "output": "./"
+              },
+              {
+                "glob": "**/*",
+                "input": "libs/shared/assets/src/assets",
+                "output": "assets"
+              }
+            ],
+            "styles": [
+              "apps/cruds-app/src/styles.scss",
+              "libs/shared/styles/src/index.scss"
+            ],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "apps/cruds-app/src/environments/environment.ts",
+                  "with": "apps/cruds-app/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb",
+                  "maximumError": "10kb"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "executor": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "cruds-app:build"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "cruds-app:build:production"
+            }
+          }
+        },
+        "extract-i18n": {
+          "executor": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "cruds-app:build"
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "apps/cruds-app/src/**/*.ts",
+              "apps/cruds-app/src/**/*.html"
+            ]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": [
+            "coverage/apps/cruds-app"
+          ],
+          "options": {
+            "jestConfig": "apps/cruds-app/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "cruds-app-e2e": {
+      "root": "apps/cruds-app-e2e",
+      "sourceRoot": "apps/cruds-app-e2e/src",
+      "projectType": "application",
+      "targets": {
+        "e2e": {
+          "executor": "@nrwl/cypress:cypress",
+          "options": {
+            "cypressConfig": "apps/cruds-app-e2e/cypress.json",
+            "tsConfig": "apps/cruds-app-e2e/tsconfig.e2e.json",
+            "devServerTarget": "cruds-app:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "cruds-app:serve:production"
+            }
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "apps/cruds-app-e2e/**/*.{js,ts}"
+            ]
+          }
+        }
+      }
+    },
+    "app-shared": {
+      "projectType": "library",
+      "root": "libs/app-shared",
+      "sourceRoot": "libs/app-shared/src",
+      "prefix": "of5",
+      "targets": {
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/app-shared/src/**/*.ts",
+              "libs/app-shared/src/**/*.html"
+            ]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": [
+            "coverage/libs/app-shared"
+          ],
+          "options": {
+            "jestConfig": "libs/app-shared/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "shared-assets": {
+      "projectType": "library",
+      "root": "libs/shared/assets",
+      "sourceRoot": "libs/shared/assets/src"
+    },
+    "shared-styles": {
+      "projectType": "library",
+      "root": "libs/shared/styles",
+      "sourceRoot": "libs/shared/styles/src"
+    },
+    "shared-environments": {
+      "projectType": "library",
+      "root": "libs/shared/environments",
+      "sourceRoot": "libs/shared/environments/src",
+      "prefix": "of5",
+      "targets": {
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/shared/environments/src/**/*.ts",
+              "libs/shared/environments/src/**/*.html"
+            ]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": [
+            "coverage/libs/shared/environments"
+          ],
+          "options": {
+            "jestConfig": "libs/shared/environments/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "shared-data-access": {
+      "projectType": "library",
+      "root": "libs/shared/data-access",
+      "sourceRoot": "libs/shared/data-access/src",
+      "prefix": "of5",
+      "targets": {
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/shared/data-access/src/**/*.ts",
+              "libs/shared/data-access/src/**/*.html"
+            ]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": [
+            "coverage/libs/shared/data-access"
+          ],
+          "options": {
+            "jestConfig": "libs/shared/data-access/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "shared-core": {
+      "projectType": "library",
+      "root": "libs/shared/core",
+      "sourceRoot": "libs/shared/core/src",
+      "prefix": "of5",
+      "targets": {
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/shared/core/src/**/*.ts",
+              "libs/shared/core/src/**/*.html"
+            ]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": [
+            "coverage/libs/shared/core"
+          ],
+          "options": {
+            "jestConfig": "libs/shared/core/jest.config.js",
             "passWithNoTests": true
           }
         }

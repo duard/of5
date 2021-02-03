@@ -23,6 +23,14 @@
   "projects": {
     "starter-app": { "tags": [] },
     "starter-app-e2e": { "tags": [], "implicitDependencies": ["starter-app"] },
-    "starter-api": { "tags": [] }
+    "starter-api": { "tags": [] },
+    "cruds-app": { "tags": [] },
+    "cruds-app-e2e": { "tags": [], "implicitDependencies": ["cruds-app"] },
+    "app-shared": { "tags": [] },
+    "shared-assets": { "tags": ["scope:shared", "type:assets"] },
+    "shared-styles": { "tags": ["scope:shared", "type:styles"] },
+    "shared-environments": { "tags": ["scope:shared", "type:environments"] },
+    "shared-data-access": { "tags": ["scope:shared", "type:data-access"] },
+    "shared-core": { "tags": ["scope:core", "type:app-core"] }
   }
 }

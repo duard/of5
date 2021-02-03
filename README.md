@@ -32,3 +32,7 @@ nx generate @nrwl/nest:library api-shared
 https://dev.to/bhargavmantha/the-secret-to-configuring-eslint-prettier-prettier-eslint-plugin-in-vscode-for-angular-ts-and-js-project-51la
 
 
+#### configurando shareds para todos os projetos 
+https://indepth.dev/posts/1185/tiny-angular-application-projects-in-nx-workspaces
+
+
