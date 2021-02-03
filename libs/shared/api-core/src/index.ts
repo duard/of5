@@ -1,1 +1,1 @@
-export * from './lib/shared-api-core.module';
+export * from './lib/api-core.module';
