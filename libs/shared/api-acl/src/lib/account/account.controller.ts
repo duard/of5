@@ -1,18 +1,18 @@
 import { Body, Controller, Param, Req, UseGuards, UseInterceptors } from '@nestjs/common';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { Crud, CrudController, Override } from '@nestjsx/crud';
+import { ACL_SCREEN, ErrorService } from '@of5/shared/api-shared';
 import { Request } from 'express';
-import { GlobalAcl } from 'src/acl/global-acl';
-import { Account } from 'src/entities/account.entity';
-import { ACL_SCREEN } from 'src/enums/acl/screen.enum';
-import { CreateAccountDTO, UpdateAccountDTO } from '../../dtos/account.dto';
+
+import { GlobalAcl } from '../acl/global-acl';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
-import { ErrorService } from '../error/error.service';
+import { CreateAccountDTO, UpdateAccountDTO } from './account.dto';
+import { AccountEntity } from './account.entity';
 import { AccountService } from './account.service';
 
 @Crud({
   model: {
-    type: Account
+    type: AccountEntity
   },
   routes: {
     exclude: ['createManyBase', 'deleteOneBase', 'updateOneBase']
@@ -30,7 +30,7 @@ import { AccountService } from './account.service';
 @UseGuards(JwtAuthGuard)
 @ApiBearerAuth()
 @UseInterceptors(new GlobalAcl(ACL_SCREEN.Account))
-export class AccountController implements CrudController<Account> {
+export class AccountController implements CrudController<AccountEntity> {
   constructor(public service: AccountService) {}
 
   @Override('createOneBase')

@@ -13,9 +13,9 @@ export class ActionScreenEntity {
   @PrimaryGeneratedColumn()
   actionScreenId: number;
 
-  @ManyToOne((type) => ScreenEntity, (screen) => screen.actionsScreen, { onDelete: 'CASCADE' })
+  @ManyToOne(() => ScreenEntity, (screen) => screen.actionsScreen, { onDelete: 'CASCADE' })
   screen: ScreenEntity;
 
-  @ManyToOne((type) => ActionEntity, (action) => action.actionsScreen)
+  @ManyToOne(() => ActionEntity, (action) => action.actionsScreen)
   action: ActionEntity;
 }

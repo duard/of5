@@ -26,18 +26,18 @@ export class ScreenEntity {
   @Column({ nullable: true })
   icon: string;
 
-  @OneToMany((type) => RoleScreenEntity, (roleScreen) => roleScreen.screen, { onDelete: 'CASCADE' })
+  @OneToMany(() => RoleScreenEntity, (roleScreen) => roleScreen.screen, { onDelete: 'CASCADE' })
   roleScreens: RoleScreenEntity[];
 
   @TreeChildren({ cascade: true })
-  children: Screen[];
+  children: ScreenEntity[];
 
   @TreeParent()
-  parent: Screen;
+  parent: ScreenEntity;
 
-  @OneToMany((type) => ActionScreenEntity, (as) => as.screen, { onDelete: 'CASCADE' })
+  @OneToMany(() => ActionScreenEntity, (as) => as.screen, { onDelete: 'CASCADE' })
   actionsScreen: ActionScreenEntity[];
 
-  @OneToMany((type) => FilterEntity, (filter) => filter.screen)
+  @OneToMany(() => FilterEntity, (filter) => filter.screen)
   filters: FilterEntity[];
 }

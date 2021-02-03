@@ -1,27 +1,25 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { TypeOrmCrudService } from '@nestjsx/crud-typeorm';
-import { Exception } from 'handlebars';
-import { QueryResolver } from 'nestjs-i18n';
-import { CreateRoleDTO, UpdateRoleDTO } from 'src/dtos/role.dto';
-import { Action } from 'src/entities/action.entity';
-import { Filter } from 'src/entities/filter.entity';
-import { RoleAction } from 'src/entities/role-action.entity';
-import { RoleFilter } from 'src/entities/role-filter.entity';
-import { RoleScreen } from 'src/entities/role-screen.entity';
-import { Role } from 'src/entities/role.entity';
-import { Screen } from 'src/entities/screen.entity';
-import { User } from 'src/entities/user.entity';
-import { Connection, createQueryBuilder, Equal, getRepository, Not, Repository } from 'typeorm';
+import { ErrorService } from '@of5/shared/api-shared';
+import { Connection, createQueryBuilder, getRepository, Repository } from 'typeorm';
+
 import { SetFiltersDTO } from '../acl/acl.dto';
-import { ErrorService } from '../error/error.service';
+import { ActionEntity } from '../action/action.entity';
+import { FilterEntity } from '../filter/filter.entity';
+import { RoleActionEntity } from '../role-action/role-action.entity';
+import { RoleFilterEntity } from '../role-filter/role-filter.entity';
+import { RoleScreenEntity } from '../role-screen/role-screen.entity';
+import { ScreenEntity } from '../screen/screen.entity';
+import { CreateRoleDTO, UpdateRoleDTO } from './role.dto';
+import { RoleEntity } from './role.entity';
 
 @Injectable()
-export class RoleService extends TypeOrmCrudService<Role> {
+export class RoleService extends TypeOrmCrudService<RoleEntity> {
   constructor(
-    @InjectRepository(Role) protected repo: Repository<Role>,
-    @InjectRepository(Screen) protected repoScreen: Repository<Screen>,
-    @InjectRepository(Action) protected repoAction: Repository<Action>,
+    @InjectRepository(RoleEntity) protected repo: Repository<RoleEntity>,
+    @InjectRepository(ScreenEntity) protected repoScreen: Repository<ScreenEntity>,
+    @InjectRepository(ActionEntity) protected repoAction: Repository<ActionEntity>,
     private connection: Connection
   ) {
     super(repo);
@@ -44,35 +42,35 @@ export class RoleService extends TypeOrmCrudService<Role> {
 
       const toSave = this.repo.create({ name: dto.name });
 
-      const savedRole = await qr.manager.getRepository(Role).save(toSave);
+      const savedRole = await qr.manager.getRepository(RoleEntity).save(toSave);
 
-      const screens = await qr.manager.getRepository(Screen).findByIds(dto.screens);
+      const screens = await qr.manager.getRepository(ScreenEntity).findByIds(dto.screens);
 
       if (!screens.length) {
         throw new HttpException('Informe ao menos uma Screen', HttpStatus.BAD_REQUEST);
       }
 
-      const roleScreens: RoleScreen[] = [];
+      const roleScreens: RoleScreenEntity[] = [];
 
       screens.forEach((s) => {
-        roleScreens.push(new RoleScreen(savedRole, s));
+        roleScreens.push(new RoleScreenEntity(savedRole, s));
       });
 
-      await qr.manager.getRepository(RoleScreen).save(roleScreens);
+      await qr.manager.getRepository(RoleScreenEntity).save(roleScreens);
 
-      const actions = await qr.manager.getRepository(Action).findByIds(dto.actions);
+      const actions = await qr.manager.getRepository(ActionEntity).findByIds(dto.actions);
 
       if (!actions.length) {
         throw new HttpException('Informe ao menos uma Action', HttpStatus.BAD_REQUEST);
       }
 
-      const roleActions: RoleAction[] = [];
+      const roleActions: RoleActionEntity[] = [];
 
       actions.forEach((a) => {
-        roleActions.push(new RoleAction(savedRole, a));
+        roleActions.push(new RoleActionEntity(savedRole, a));
       });
 
-      await qr.manager.getRepository(RoleAction).save(roleActions);
+      await qr.manager.getRepository(RoleActionEntity).save(roleActions);
 
       await qr.commitTransaction();
     } catch (err) {
@@ -87,7 +85,7 @@ export class RoleService extends TypeOrmCrudService<Role> {
       throw new HttpException('Role não encontrado', HttpStatus.NOT_FOUND);
     }
 
-    const filters = await createQueryBuilder(Filter, 'filter')
+    const filters = await createQueryBuilder(FilterEntity, 'filter')
       .leftJoinAndSelect('filter.roleFilters', 'roleFilters')
       .leftJoinAndSelect('roleFilters.role', 'role')
       .where('role.roleId = :roleId', { roleId: id })
@@ -115,48 +113,48 @@ export class RoleService extends TypeOrmCrudService<Role> {
 
       if (dto.name) {
         const toEdit = this.repo.create({ name: dto.name });
-        await qr.manager.getRepository(Role).update(id, toEdit);
+        await qr.manager.getRepository(RoleEntity).update(id, toEdit);
       }
 
-      const role = new Role();
+      const role = new RoleEntity();
       role.roleId = id;
 
       if (dto.screens.length) {
-        const screens = await qr.manager.getRepository(Screen).findByIds(dto.screens);
+        const screens = await qr.manager.getRepository(ScreenEntity).findByIds(dto.screens);
 
-        const roleScreens: RoleScreen[] = [];
+        const roleScreens: RoleScreenEntity[] = [];
 
         screens.forEach((s) => {
-          roleScreens.push(new RoleScreen(role, s));
+          roleScreens.push(new RoleScreenEntity(role, s));
         });
 
         await qr.manager
-          .createQueryBuilder(RoleScreen, 'roleScreen')
+          .createQueryBuilder(RoleScreenEntity, 'roleScreen')
           .leftJoinAndSelect('roleScreen.role', 'role')
           .delete()
           .where('role.roleId = :roleId', { roleId: id })
           .execute();
 
-        await qr.manager.getRepository(RoleScreen).save(roleScreens);
+        await qr.manager.getRepository(RoleScreenEntity).save(roleScreens);
       }
 
       if (dto.actions.length) {
-        const actions = await qr.manager.getRepository(Action).findByIds(dto.actions);
+        const actions = await qr.manager.getRepository(ActionEntity).findByIds(dto.actions);
 
-        const roleActions: RoleAction[] = [];
+        const roleActions: RoleActionEntity[] = [];
 
         actions.forEach((a) => {
-          roleActions.push(new RoleAction(role, a));
+          roleActions.push(new RoleActionEntity(role, a));
         });
 
         await qr.manager
-          .createQueryBuilder(RoleAction, 'roleAction')
+          .createQueryBuilder(RoleActionEntity, 'roleAction')
           .leftJoinAndSelect('roleAction.role', 'role')
           .delete()
           .where('role.roleId = :roleId', { roleId: id })
           .execute();
 
-        await qr.manager.getRepository(RoleAction).save(roleActions);
+        await qr.manager.getRepository(RoleActionEntity).save(roleActions);
       }
 
       await qr.commitTransaction();
@@ -176,13 +174,13 @@ export class RoleService extends TypeOrmCrudService<Role> {
       // Validar o objeto de DTO
       this.validateSetFiltersDto(dto);
 
-      const role = await qr.manager.getRepository(Role).findOne(roleId);
+      const role = await qr.manager.getRepository(RoleEntity).findOne(roleId);
 
       if (!role) {
         throw new HttpException('Role inválido', HttpStatus.BAD_REQUEST);
       }
 
-      const filters = await createQueryBuilder(Filter, 'filter')
+      const filters = await createQueryBuilder(FilterEntity, 'filter')
         .leftJoinAndSelect('filter.roleFilters', 'roleFilters')
         .leftJoinAndSelect('roleFilters.role', 'role')
         .where('role.roleId = :roleId', { roleId })
@@ -191,18 +189,18 @@ export class RoleService extends TypeOrmCrudService<Role> {
       const filterIds = filters.map((f) => f.filterId);
 
       if (filterIds.length) {
-        await getRepository(Filter).delete(filterIds);
+        await getRepository(FilterEntity).delete(filterIds);
       }
 
       for (const screen of dto.screens) {
-        const filters: Filter[] = [];
+        const filters: FilterEntity[] = [];
 
         for (const filterChild of screen.filters) {
-          const atualScreen = await qr.manager.getRepository(Screen).findOne(screen.screen);
+          const atualScreen = await qr.manager.getRepository(ScreenEntity).findOne(screen.screen);
 
           if (atualScreen) {
             filters.push(
-              new Filter({
+              new FilterEntity({
                 fieldName: filterChild.field,
                 operation: filterChild.op,
                 value: filterChild.value,
@@ -213,23 +211,23 @@ export class RoleService extends TypeOrmCrudService<Role> {
         }
 
         if (filters.length) {
-          const savedFilters = await qr.manager.getRepository(Filter).save(filters);
+          const savedFilters = await qr.manager.getRepository(FilterEntity).save(filters);
 
-          const roleFilters: RoleFilter[] = [];
+          const roleFilters: RoleFilterEntity[] = [];
 
           savedFilters.forEach((sf) => {
-            roleFilters.push(new RoleFilter(role, sf));
+            roleFilters.push(new RoleFilterEntity(role, sf));
           });
 
           await qr.manager
-            .getRepository(RoleFilter)
+            .getRepository(RoleFilterEntity)
             .createQueryBuilder('roleFilter')
             .leftJoin('roleFilter.role', 'role')
             .delete()
             .where('role = :roleId', { roleId: role.roleId })
             .execute();
 
-          await qr.manager.getRepository(RoleFilter).save(roleFilters);
+          await qr.manager.getRepository(RoleFilterEntity).save(roleFilters);
         }
       }
       return;
@@ -245,7 +243,7 @@ export class RoleService extends TypeOrmCrudService<Role> {
       throw new HttpException('Role não encontrado', HttpStatus.NOT_FOUND);
     }
 
-    const filterToDelete = await createQueryBuilder(Filter, 'filter')
+    const filterToDelete = await createQueryBuilder(FilterEntity, 'filter')
       .leftJoinAndSelect('filter.roleFilters', 'roleFilters')
       .leftJoinAndSelect('roleFilters.role', 'role')
       .where('role.roleId = :roleId AND filter.filterId = :filterId', { roleId, filterId })
@@ -255,7 +253,7 @@ export class RoleService extends TypeOrmCrudService<Role> {
       throw new HttpException('Filter não encontrado', HttpStatus.NOT_FOUND);
     }
 
-    await getRepository(Filter).delete(filterToDelete.filterId);
+    await getRepository(FilterEntity).delete(filterToDelete.filterId);
 
     return;
   }
@@ -265,7 +263,7 @@ export class RoleService extends TypeOrmCrudService<Role> {
       throw new HttpException('Role não encontrado', HttpStatus.NOT_FOUND);
     }
 
-    const filterToDelete = await createQueryBuilder(Filter, 'filter')
+    const filterToDelete = await createQueryBuilder(FilterEntity, 'filter')
       .leftJoinAndSelect('filter.roleFilters', 'roleFilters')
       .leftJoinAndSelect('roleFilters.role', 'role')
       .where('role.roleId = :roleId', { roleId })
@@ -274,7 +272,7 @@ export class RoleService extends TypeOrmCrudService<Role> {
     const filterIds = filterToDelete.map((f) => f.filterId);
 
     if (filterIds.length) {
-      await getRepository(Filter).delete(filterIds);
+      await getRepository(FilterEntity).delete(filterIds);
     }
 
     return;

@@ -1,19 +1,18 @@
 import { Body, Controller, Get, Param, Put, Req, UseGuards, UseInterceptors } from '@nestjs/common';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { Crud, CrudController, Override } from '@nestjsx/crud';
-import { CreateParameterDTO, UpdateParameterByKeyDTO, UpdateParameterDTO } from 'src/dtos/parameter.dto';
-import { Parameter } from 'src/entities/parameter.entity';
-import { ErrorService } from '../error/error.service';
-import { ParameterService } from './parameter.service';
-
+import { ACL_SCREEN, ErrorService } from '@of5/shared/api-shared';
 import { Request } from 'express';
-import { GlobalAcl } from 'src/acl/global-acl';
-import { ACL_SCREEN } from 'src/enums/acl/screen.enum';
+
+import { GlobalAcl } from '../acl/global-acl';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
+import { CreateParameterDTO, UpdateParameterByKeyDTO, UpdateParameterDTO } from './parameter.dto';
+import { ParameterEntity } from './parameter.entity';
+import { ParameterService } from './parameter.service';
 
 @Crud({
   model: {
-    type: Parameter
+    type: ParameterEntity
   },
   params: {
     id: { field: 'id', primary: true, type: 'number' }
@@ -27,7 +26,7 @@ import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 @ApiBearerAuth()
 @UseGuards(JwtAuthGuard)
 @UseInterceptors(new GlobalAcl(ACL_SCREEN.Parameter))
-export class ParameterController implements CrudController<Parameter> {
+export class ParameterController implements CrudController<ParameterEntity> {
   constructor(public readonly service: ParameterService) {}
 
   @Get(':key/key')

@@ -1,13 +1,14 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { AwsModule } from 'src/services/aws/aws.module';
-import { User } from '../../entities/user.entity';
+import { AwsModule } from '@of5/shared/api-shared';
+
 import { AuthModule } from '../auth/auth.module';
+import { UserEntity } from './user.entity';
 import { UsersController } from './users.controller';
 import { UsersService } from './users.service';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([User]), AuthModule, AwsModule],
+  imports: [TypeOrmModule.forFeature([UserEntity]), AuthModule, AwsModule],
   providers: [UsersService],
   controllers: [UsersController]
 })

@@ -1,20 +1,18 @@
-import { Body, Controller, Param, Req, UploadedFile, UseGuards, UseInterceptors } from '@nestjs/common';
-import { ApiBearerAuth, ApiParam, ApiTags } from '@nestjs/swagger';
-
-import { Crud, CrudController, Override } from '@nestjsx/crud';
-import { User } from '../../entities/user.entity';
-import { UsersService } from './users.service';
-
+import { Body, Controller, Param, UploadedFile, UseInterceptors } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
-import { UserReq } from 'src/decorators/user.decorator';
-import { UserCreateDTO, UserUpdateDTO } from 'src/dtos/user.dto';
-import { BinaryFile } from 'src/shared/interfaces/file.interface';
-import { JwtAuthGuard } from '../auth/jwt-auth.guard';
-import { ErrorService } from '../error/error.service';
+import { ApiBearerAuth, ApiParam, ApiTags } from '@nestjs/swagger';
+import { Crud, CrudController, Override } from '@nestjsx/crud';
+import { ErrorService } from '@of5/shared/api-shared';
+import { BinaryFile } from '@of5/shared/interfaces';
+
+import { UserReq } from './user.decorator';
+import { UserCreateDTO, UserUpdateDTO } from './user.dto';
+import { UserEntity } from './user.entity';
+import { UsersService } from './users.service';
 
 @Crud({
   model: {
-    type: User
+    type: UserEntity
   },
   routes: {
     createOneBase: {
@@ -45,11 +43,11 @@ import { ErrorService } from '../error/error.service';
     }
   }
 })
-@UseGuards(JwtAuthGuard)
+// @UseGuards(JwtAuthGuard)
 @Controller('users')
 @ApiTags('Users')
 @ApiBearerAuth()
-export class UsersController implements CrudController<User> {
+export class UsersController implements CrudController<UserEntity> {
   constructor(public service: UsersService) {}
 
   @Override('createOneBase')
@@ -60,7 +58,7 @@ export class UsersController implements CrudController<User> {
     type: 'File'
   })
   @UseInterceptors(FileInterceptor('file'))
-  async saveOne(@UserReq() user: User, @Body() dto: UserCreateDTO, @UploadedFile('file') media: BinaryFile) {
+  async saveOne(@UserReq() user: UserEntity, @Body() dto: UserCreateDTO, @UploadedFile('file') media: BinaryFile) {
     try {
       return await this.service.saveOne(user, dto, media);
     } catch (err) {
@@ -77,7 +75,7 @@ export class UsersController implements CrudController<User> {
   })
   @UseInterceptors(FileInterceptor('file'))
   async update(
-    @UserReq() user: User,
+    @UserReq() user: UserEntity,
     @Param('id') id: number,
     @Body() dto: UserUpdateDTO,
     @UploadedFile('file') media: BinaryFile

@@ -1,10 +1,11 @@
-import { Body, Controller, Get, Param, Put, Query, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, Param, Query, UseGuards } from '@nestjs/common';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { Crud, CrudController, Override } from '@nestjsx/crud';
-import { ActionsOfScreenDTO, CreateScreenDTO, UpdateScreenDTO } from 'src/dtos/screen.dto';
-import { Screen } from 'src/entities/screen.entity';
+import { ErrorService } from '@of5/shared/api-shared';
+
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
-import { ErrorService } from '../error/error.service';
+import { ActionsOfScreenDTO, CreateScreenDTO, UpdateScreenDTO } from './screen.dto';
+import { ScreenEntity } from './screen.entity';
 import { ScreenService } from './screen.service';
 
 @Crud({
@@ -27,7 +28,7 @@ import { ScreenService } from './screen.service';
 @ApiTags('Screens')
 @UseGuards(JwtAuthGuard)
 @ApiBearerAuth()
-export class ScreenController implements CrudController<Screen> {
+export class ScreenController implements CrudController<ScreenEntity> {
   constructor(public service: ScreenService) {}
 
   @Override('createOneBase')

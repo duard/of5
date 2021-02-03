@@ -1,18 +1,19 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { TypeOrmCrudService } from '@nestjsx/crud-typeorm';
-import { UpdateFilterDTO } from 'src/dtos/filter.dto';
-import { Filter } from 'src/entities/filter.entity';
-import { User } from 'src/entities/user.entity';
 import { Repository } from 'typeorm';
 
+import { UserEntity } from '../users/user.entity';
+import { UpdateFilterDTO } from './filter.dto';
+import { FilterEntity } from './filter.entity';
+
 @Injectable()
-export class FilterService extends TypeOrmCrudService<Filter> {
-  constructor(@InjectRepository(Filter) protected repo: Repository<Filter>) {
+export class FilterService extends TypeOrmCrudService<FilterEntity> {
+  constructor(@InjectRepository(FilterEntity) protected repo: Repository<FilterEntity>) {
     super(repo);
   }
 
-  async update(user: User, id: number, dto: UpdateFilterDTO) {
+  async update(user: UserEntity, id: number, dto: UpdateFilterDTO) {
     const exists = await this.repo.findOne(id);
 
     if (!exists) {

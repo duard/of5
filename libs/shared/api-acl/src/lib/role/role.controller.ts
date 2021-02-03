@@ -1,22 +1,16 @@
 import { Body, Controller, Delete, Get, HttpCode, HttpStatus, Param, Post, UseGuards } from '@nestjs/common';
-import {
-  ApiBearerAuth,
-  ApiDefaultResponse,
-  ApiNoContentResponse,
-  ApiOkResponse,
-  ApiResponse,
-  ApiTags
-} from '@nestjs/swagger';
+import { ApiBearerAuth, ApiNoContentResponse, ApiOkResponse, ApiTags } from '@nestjs/swagger';
 import { Crud, CrudController, Override } from '@nestjsx/crud';
-import { CreateRoleDTO, UpdateRoleDTO } from 'src/dtos/role.dto';
-import { Role } from 'src/entities/role.entity';
+import { ErrorService } from '@of5/shared/api-shared';
+
 import { SetFiltersDTO } from '../acl/acl.dto';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
-import { ErrorService } from '../error/error.service';
+import { CreateRoleDTO, UpdateRoleDTO } from './role.dto';
+import { RoleEntity } from './role.entity';
 import { RoleService } from './role.service';
 
 @Crud({
-  model: { type: Role },
+  model: { type: RoleEntity },
   params: {
     id: { field: 'roleId', primary: true, type: 'number' }
   },
@@ -36,7 +30,7 @@ import { RoleService } from './role.service';
 @ApiTags('Roles')
 @UseGuards(JwtAuthGuard)
 @ApiBearerAuth()
-export class RoleController implements CrudController<Role> {
+export class RoleController implements CrudController<RoleEntity> {
   constructor(public service: RoleService) {}
 
   @Override('createOneBase')

@@ -2,18 +2,18 @@ import { HttpException, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Override } from '@nestjsx/crud';
 import { TypeOrmCrudService } from '@nestjsx/crud-typeorm';
+import { EXCEPTION, getUserFromRequest } from '@of5/shared/api-shared';
 import { Request } from 'express';
-import { CreateAccountDTO, UpdateAccountDTO } from 'src/dtos/account.dto';
-import { EXCEPTION } from 'src/enums/translate/exception.enum';
-import { getUserFromRequest } from 'src/shared/utils/functions';
 import { Repository } from 'typeorm';
-import { Account } from '../../entities/account.entity';
+
+import { CreateAccountDTO, UpdateAccountDTO } from './account.dto';
+import { AccountEntity } from './account.entity';
 
 @Injectable()
-export class AccountService extends TypeOrmCrudService<Account> {
+export class AccountService extends TypeOrmCrudService<AccountEntity> {
   constructor(
-    @InjectRepository(Account)
-    private readonly accountRepository: Repository<Account>
+    @InjectRepository(AccountEntity)
+    private readonly accountRepository: Repository<AccountEntity>
   ) {
     super(accountRepository);
   }

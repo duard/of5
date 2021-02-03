@@ -1,23 +1,20 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
-import { getSchemaPath } from '@nestjs/swagger';
 import { InjectRepository } from '@nestjs/typeorm';
 import { TypeOrmCrudService } from '@nestjsx/crud-typeorm';
-import { IsArray } from 'class-validator';
-import { QueryResolver } from 'nestjs-i18n';
-import { ActionsOfScreenDTO, CreateScreenDTO, UpdateScreenDTO } from 'src/dtos/screen.dto';
-import { ActionScreen } from 'src/entities/action-screen.entity';
-import { Action } from 'src/entities/action.entity';
-import { Screen } from 'src/entities/screen.entity';
-import { User } from 'src/entities/user.entity';
-import { SCREEN_TYPE } from 'src/enums/acl/screen-type.enum';
-import { ACL_SCREEN } from 'src/enums/acl/screen.enum';
-import { Connection, createQueryBuilder, EntitySchema, Equal, getRepository, Repository } from 'typeorm';
-import { ColumnMetadata } from 'typeorm/metadata/ColumnMetadata';
-import { ErrorService } from '../error/error.service';
+import { ACL_SCREEN, ErrorService, SCREEN_TYPE } from '@of5/shared/api-shared';
+import { Connection, createQueryBuilder, Equal, getRepository, Repository } from 'typeorm';
+
+import { ActionScreenEntity } from '../action-screen/action-screen.entity';
+import { ActionEntity } from '../action/action.entity';
+import { ActionsOfScreenDTO, CreateScreenDTO, UpdateScreenDTO } from './screen.dto';
+import { ScreenEntity } from './screen.entity';
 
 @Injectable()
-export class ScreenService extends TypeOrmCrudService<Screen> {
-  constructor(private connection: Connection, @InjectRepository(Screen) protected repo: Repository<Screen>) {
+export class ScreenService extends TypeOrmCrudService<ScreenEntity> {
+  constructor(
+    private connection: Connection,
+    @InjectRepository(ScreenEntity) protected repo: Repository<ScreenEntity>
+  ) {
     super(repo);
   }
 
@@ -27,19 +24,19 @@ export class ScreenService extends TypeOrmCrudService<Screen> {
       await qr.connect();
       await qr.startTransaction();
 
-      const alreadyExistKey = await qr.manager.getRepository(Screen).findOne({ where: { key: Equal(dto.key) } });
+      const alreadyExistKey = await qr.manager.getRepository(ScreenEntity).findOne({ where: { key: Equal(dto.key) } });
 
       if (alreadyExistKey) {
         throw new HttpException('Key já está cadastrada!', HttpStatus.BAD_REQUEST);
       }
 
       if (dto.type == SCREEN_TYPE.SUBHEADING) {
-        const sub = new Screen();
+        const sub = new ScreenEntity();
         sub.label = dto.label;
         sub.type = dto.type;
         sub.key = dto.key;
 
-        const savedSub = await qr.manager.getRepository(Screen).save(sub);
+        const savedSub = await qr.manager.getRepository(ScreenEntity).save(sub);
 
         await qr.commitTransaction();
 
@@ -47,10 +44,10 @@ export class ScreenService extends TypeOrmCrudService<Screen> {
       }
 
       if (dto.type == SCREEN_TYPE.DROPDOWN) {
-        const dropdown = new Screen();
+        const dropdown = new ScreenEntity();
 
         if (dto.parentId) {
-          const parent = await qr.manager.getRepository(Screen).findOne(dto.parentId);
+          const parent = await qr.manager.getRepository(ScreenEntity).findOne(dto.parentId);
 
           if (!parent) {
             throw new HttpException('Parent não existe', HttpStatus.NOT_FOUND);
@@ -63,7 +60,7 @@ export class ScreenService extends TypeOrmCrudService<Screen> {
         dropdown.type = dto.type;
         dropdown.key = dto.key;
 
-        const savedDropdown = await qr.manager.getRepository(Screen).save(dropdown);
+        const savedDropdown = await qr.manager.getRepository(ScreenEntity).save(dropdown);
 
         await qr.commitTransaction();
 
@@ -71,7 +68,7 @@ export class ScreenService extends TypeOrmCrudService<Screen> {
       }
 
       if (dto.type == SCREEN_TYPE.LINK) {
-        const link = new Screen();
+        const link = new ScreenEntity();
 
         if (!dto.route) {
           throw new HttpException('Informe uma url para o menu', HttpStatus.BAD_REQUEST);
@@ -82,7 +79,7 @@ export class ScreenService extends TypeOrmCrudService<Screen> {
         }
 
         if (dto.parentId) {
-          const parent = await qr.manager.getRepository(Screen).findOne(dto.parentId);
+          const parent = await qr.manager.getRepository(ScreenEntity).findOne(dto.parentId);
 
           if (!parent) {
             throw new HttpException('Parent não existe', HttpStatus.NOT_FOUND);
@@ -96,17 +93,17 @@ export class ScreenService extends TypeOrmCrudService<Screen> {
         link.key = dto.key;
         link.route = dto.route;
 
-        const savedLink = await qr.manager.getRepository(Screen).save(link);
+        const savedLink = await qr.manager.getRepository(ScreenEntity).save(link);
 
-        const actions = await qr.manager.getRepository(Action).findByIds(dto.actions);
+        const actions = await qr.manager.getRepository(ActionEntity).findByIds(dto.actions);
 
-        const actionsScreen: ActionScreen[] = [];
+        const actionsScreen: ActionScreenEntity[] = [];
 
         actions.forEach((action) => {
-          actionsScreen.push(new ActionScreen(savedLink, action));
+          actionsScreen.push(new ActionScreenEntity(savedLink, action));
         });
 
-        await qr.manager.getRepository(ActionScreen).save(actionsScreen);
+        await qr.manager.getRepository(ActionScreenEntity).save(actionsScreen);
 
         await qr.commitTransaction();
 
@@ -127,7 +124,7 @@ export class ScreenService extends TypeOrmCrudService<Screen> {
       await qr.connect();
       await qr.startTransaction();
 
-      const screenTransaction = qr.manager.getRepository(Screen);
+      const screenTransaction = qr.manager.getRepository(ScreenEntity);
 
       const exists = await screenTransaction.findOne(id);
 
@@ -162,7 +159,7 @@ export class ScreenService extends TypeOrmCrudService<Screen> {
           if (!parent) {
             throw new HttpException('Parent não existe', HttpStatus.NOT_FOUND);
           }
-          drop.parent = parent;
+          // drop.parent = parent;
         }
 
         await screenTransaction.update(id, drop);
@@ -181,29 +178,29 @@ export class ScreenService extends TypeOrmCrudService<Screen> {
           if (!parent) {
             throw new HttpException('Parent não existe', HttpStatus.NOT_FOUND);
           }
-          link.parent = parent;
+          // link.parent = parent;
         }
 
         await screenTransaction.update(id, link);
 
         if (dto.actions) {
           await qr.manager
-            .getRepository(ActionScreen)
+            .getRepository(ActionScreenEntity)
             .createQueryBuilder('as')
             .leftJoinAndSelect('as.screen', 'screen')
             .delete()
             .where('screen.screenId = :id', { id })
             .execute();
 
-          const actions = await qr.manager.getRepository(Action).findByIds(dto.actions);
+          const actions = await qr.manager.getRepository(ActionEntity).findByIds(dto.actions);
 
-          const actionsScreen: ActionScreen[] = [];
+          const actionsScreen: ActionScreenEntity[] = [];
 
           actions.forEach((action) => {
-            actionsScreen.push(new ActionScreen(exists, action));
+            actionsScreen.push(new ActionScreenEntity(exists, action));
           });
 
-          await qr.manager.getRepository(ActionScreen).save(actionsScreen);
+          await qr.manager.getRepository(ActionScreenEntity).save(actionsScreen);
         }
 
         await qr.commitTransaction();
@@ -229,7 +226,7 @@ export class ScreenService extends TypeOrmCrudService<Screen> {
         throw new HttpException('Screen não existe', HttpStatus.NOT_FOUND);
       }
 
-      const actions = await createQueryBuilder(Action, 'action')
+      const actions = await createQueryBuilder(ActionEntity, 'action')
         .leftJoinAndSelect('action.actionsScreen', 'actionsScreen')
         .leftJoinAndSelect('actionsScreen.screen', 'screen')
         .where('screen.screenId in (:screenIds)', { screenIds: dto.screens })
@@ -262,7 +259,7 @@ export class ScreenService extends TypeOrmCrudService<Screen> {
 
       clause = `(${clause})`;
 
-      const actions = await createQueryBuilder(Action, 'action')
+      const actions = await createQueryBuilder(ActionEntity, 'action')
         .leftJoinAndSelect('action.actionsScreen', 'actionsScreen')
         .leftJoinAndSelect('actionsScreen.screen', 'screen')
         .where(clause, params)

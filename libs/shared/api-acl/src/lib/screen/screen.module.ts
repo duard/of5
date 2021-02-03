@@ -1,11 +1,12 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { Screen } from 'src/entities/screen.entity';
+
 import { ScreenController } from './screen.controller';
+import { ScreenEntity } from './screen.entity';
 import { ScreenService } from './screen.service';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Screen])],
+  imports: [TypeOrmModule.forFeature([ScreenEntity])],
   controllers: [ScreenController],
   providers: [ScreenService],
   exports: [ScreenService]

@@ -13,15 +13,15 @@ export class RoleEntity {
   @Column()
   name: string;
 
-  @OneToMany((type) => RoleGroupEntity, (rg) => rg.role, { onDelete: 'CASCADE' })
+  @OneToMany(() => RoleGroupEntity, (rg) => rg.role, { onDelete: 'CASCADE' })
   roleGroups: RoleGroupEntity[];
 
-  @OneToMany((type) => RoleScreenEntity, (rs) => rs.role, { onDelete: 'CASCADE' })
+  @OneToMany(() => RoleScreenEntity, (rs) => rs.role, { onDelete: 'CASCADE' })
   roleScreens: RoleScreenEntity[];
 
-  @OneToMany((type) => RoleActionEntity, (ra) => ra.role, { onDelete: 'CASCADE' })
+  @OneToMany(() => RoleActionEntity, (ra) => ra.role, { onDelete: 'CASCADE' })
   roleActions: RoleActionEntity[];
 
-  @OneToMany((type) => RoleFilterEntity, (roleFilter) => roleFilter.role, { onDelete: 'CASCADE' })
+  @OneToMany(() => RoleFilterEntity, (roleFilter) => roleFilter.role, { onDelete: 'CASCADE' })
   roleFilters: RoleFilterEntity;
 }

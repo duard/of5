@@ -2,20 +2,18 @@ import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Override } from '@nestjsx/crud';
 import { TypeOrmCrudService } from '@nestjsx/crud-typeorm';
-import { IsArray } from 'class-validator';
+import { EXCEPTION, getUserFromRequest, PARAMETER } from '@of5/shared/api-shared';
 import { Request } from 'express';
-import { CreateParameterDTO, UpdateParameterByKeyDTO, UpdateParameterDTO } from 'src/dtos/parameter.dto';
-import { Parameter } from 'src/entities/parameter.entity';
-import { EXCEPTION } from 'src/enums/translate/exception.enum';
-import { PARAMETER } from 'src/enums/translate/parameter.enum';
-import { getUserFromRequest } from 'src/shared/utils/functions';
 import { createQueryBuilder, Repository } from 'typeorm';
 
+import { CreateParameterDTO, UpdateParameterByKeyDTO, UpdateParameterDTO } from './parameter.dto';
+import { ParameterEntity } from './parameter.entity';
+
 @Injectable()
-export class ParameterService extends TypeOrmCrudService<Parameter> {
+export class ParameterService extends TypeOrmCrudService<ParameterEntity> {
   constructor(
-    @InjectRepository(Parameter)
-    private readonly parameterRepository: Repository<Parameter>
+    @InjectRepository(ParameterEntity)
+    private readonly parameterRepository: Repository<ParameterEntity>
   ) {
     super(parameterRepository);
   }
@@ -115,7 +113,7 @@ export class ParameterService extends TypeOrmCrudService<Parameter> {
       params[`key`] = keys;
     }
 
-    const parameters = createQueryBuilder(Parameter, 'parameter').where(where, params).getMany();
+    const parameters = createQueryBuilder(ParameterEntity, 'parameter').where(where, params).getMany();
 
     return parameters;
   }

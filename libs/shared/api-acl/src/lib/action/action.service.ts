@@ -1,14 +1,15 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { TypeOrmCrudService } from '@nestjsx/crud-typeorm';
-import { CreateActionDTO, UpdateActionDTO } from 'src/dtos/action.dto';
-import { Action } from 'src/entities/action.entity';
-import { User } from 'src/entities/user.entity';
 import { Equal, Repository } from 'typeorm';
 
+import { UserEntity } from '../users/user.entity';
+import { CreateActionDTO, UpdateActionDTO } from './action.dto';
+import { ActionEntity } from './action.entity';
+
 @Injectable()
-export class ActionService extends TypeOrmCrudService<Action> {
-  constructor(@InjectRepository(Action) protected repo: Repository<Action>) {
+export class ActionService extends TypeOrmCrudService<ActionEntity> {
+  constructor(@InjectRepository(ActionEntity) protected repo: Repository<ActionEntity>) {
     super(repo);
   }
 
@@ -24,7 +25,7 @@ export class ActionService extends TypeOrmCrudService<Action> {
     return await this.repo.save(toSave);
   }
 
-  async update(user: User, id: number, dto: UpdateActionDTO) {
+  async update(user: UserEntity, id: number, dto: UpdateActionDTO) {
     const exists = await this.repo.findOne(id);
 
     if (!exists) {
