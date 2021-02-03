@@ -1,0 +1,3 @@
+export enum PARAMETER {
+  KEY_ALREADY_EXISTS = 'MSG_I18N_parameter.KEY_ALREADY_EXISTS'
+}

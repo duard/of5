@@ -1,0 +1,5 @@
+export enum MENU_ITEM {
+  NOT_FOUND = 'MSG_I18N_menu-item.NOT_FOUND',
+  PARENT_NOT_FOUND = 'MSG_I18N_menu-item.PARENT_NOT_FOUND',
+  PARENT_REQUIRED = 'MSG_I18N_menu-item.PARENT_REQUIRED'
+}
