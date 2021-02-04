@@ -27,6 +27,12 @@
     "help": "nx help",
     "postinstall": "ngcc --properties es2015 browser module main --first-only --create-ivy-entry-points"
   },
+  "husky": {
+    "hooks": {
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS",
+      "pre-commit": "pretty-quick --staged"
+    }
+  },
   "private": true,
   "dependencies": {
     "@angular/animations": "^11.0.0",
@@ -91,6 +97,8 @@
     "@angular-eslint/template-parser": "~1.0.0",
     "@angular/compiler-cli": "^11.0.0",
     "@angular/language-service": "^11.0.0",
+    "@commitlint/cli": "^11.0.0",
+    "@commitlint/config-conventional": "^11.0.0",
     "@nestjs/schematics": "^7.0.0",
     "@nestjs/testing": "^7.0.0",
     "@nrwl/angular": "^11.2.7",
@@ -120,6 +128,7 @@
     "jest-preset-angular": "8.3.2",
     "prettier": "^2.2.1",
     "prettier-eslint": "^12.0.0",
+    "pretty-quick": "^3.1.0",
     "ts-jest": "26.4.0",
     "ts-node": "~9.1.1",
     "typescript": "~4.0.3"
