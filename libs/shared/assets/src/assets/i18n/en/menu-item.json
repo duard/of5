@@ -1,0 +1,5 @@
+{
+    "NOT_FOUND": "Menu item not found",
+    "PARENT_NOT_FOUND": "Please select a valid parent menu item",
+    "PARENT_REQUIRED": "A parent menu item is required"
+}

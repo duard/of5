@@ -1,10 +1,10 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { AclData } from '@of5/shared/interfaces';
 import * as arrayToTree from 'array-to-tree';
 import { createQueryBuilder, getTreeRepository, Repository } from 'typeorm';
 
 import { ActionEntity, UserEntity } from '../..';
+import { AclData } from '../acl-data.interface';
 import { ActionScreenEntity } from '../action-screen/action-screen.entity';
 import { FilterEntity } from '../filter/filter.entity';
 import { MemberEntity } from '../member/member.entity';

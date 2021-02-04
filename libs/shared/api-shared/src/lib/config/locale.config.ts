@@ -9,7 +9,7 @@ export const localeConfig = {
   },
   parser: I18nJsonParser,
   parserOptions: {
-    path: path.join('src/i18n/'),
+    path: path.join('assets/i18n/'),
     watch: true
   },
   resolvers: [

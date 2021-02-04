@@ -40,3 +40,7 @@ Thumbs.db
 
 # logs do sistema
 /logs
+
+# ENV
+.env
+.env*
