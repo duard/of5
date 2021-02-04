@@ -1,23 +1,24 @@
 import { HttpException, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { TypeOrmCrudService } from '@nestjsx/crud-typeorm';
+import { EXCEPTION } from '@of5/shared/api-shared';
 import { Request } from 'express';
-import { MenuGroupCreateDTO, MenuGroupUpdateDTO } from 'src/dtos/menu-group.dto';
-import { MenuGroup } from 'src/entities/menu-group.entity';
-import { EXCEPTION } from 'src/enums/translate/exception.enum';
-import { getUserFromRequest } from 'src/shared/utils/functions';
 import { Repository } from 'typeorm';
 
+import { getUserFromRequest } from '../functions';
+import { MenuGroupCreateDTO, MenuGroupUpdateDTO } from './menu-group.dto';
+import { MenuGroupEntity } from './menu-group.entity';
+
 @Injectable()
-export class MenuGroupService extends TypeOrmCrudService<MenuGroup> {
+export class MenuGroupService extends TypeOrmCrudService<MenuGroupEntity> {
   constructor(
-    @InjectRepository(MenuGroup)
-    private readonly repository: Repository<MenuGroup>
+    @InjectRepository(MenuGroupEntity)
+    private readonly repository: Repository<MenuGroupEntity>
   ) {
     super(repository);
   }
 
-  async saveOne(req: Request, dto: MenuGroupCreateDTO): Promise<MenuGroup> {
+  async saveOne(req: Request, dto: MenuGroupCreateDTO): Promise<MenuGroupEntity> {
     const menu = getUserFromRequest(req);
 
     const menuGroupToSave = this.repository.create(dto);

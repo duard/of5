@@ -1,6 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
+import { DTO } from '@of5/shared/api-shared';
 import { IsNotEmpty, IsOptional, MaxLength } from 'class-validator';
-import { DTO } from 'src/enums/translate/dto.enum';
 
 export class MenuGroupCreateDTO {
   @ApiProperty({

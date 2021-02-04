@@ -2,10 +2,11 @@ import { HttpException, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Override } from '@nestjsx/crud';
 import { TypeOrmCrudService } from '@nestjsx/crud-typeorm';
-import { EXCEPTION, getUserFromRequest } from '@of5/shared/api-shared';
+import { EXCEPTION } from '@of5/shared/api-shared';
 import { Request } from 'express';
 import { Repository } from 'typeorm';
 
+import { getUserFromRequest } from '../functions';
 import { CreateAccountDTO, UpdateAccountDTO } from './account.dto';
 import { AccountEntity } from './account.entity';
 

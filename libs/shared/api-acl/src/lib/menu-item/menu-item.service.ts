@@ -1,24 +1,24 @@
 import { HttpException, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { TypeOrmCrudService } from '@nestjsx/crud-typeorm';
+import { EXCEPTION, MENU_ITEM } from '@of5/shared/api-shared';
 import { Request } from 'express';
-import { SaveMenuItemDTO, UpdateMenuItemDTO } from 'src/dtos/menu-item.dto';
-import { EXCEPTION } from 'src/enums/translate/exception.enum';
-import { MENU_ITEM } from 'src/enums/translate/menu-item.enum';
-import { getUserFromRequest } from 'src/shared/utils/functions';
 import { getRepository, Repository } from 'typeorm';
-import { MenuItem } from '../../entities/menu-item.entity';
+
+import { getUserFromRequest } from '../functions';
+import { SaveMenuItemDTO, UpdateMenuItemDTO } from './menu-item.dto';
+import { MenuItemEntity } from './menu-item.entity';
 
 @Injectable()
-export class MenuItemService extends TypeOrmCrudService<MenuItem> {
+export class MenuItemService extends TypeOrmCrudService<MenuItemEntity> {
   constructor(
-    @InjectRepository(MenuItem)
-    private readonly menuItemRepository: Repository<MenuItem>
+    @InjectRepository(MenuItemEntity)
+    private readonly menuItemRepository: Repository<MenuItemEntity>
   ) {
     super(menuItemRepository);
   }
 
-  async saveOne(req: Request, dto: SaveMenuItemDTO): Promise<MenuItem> {
+  async saveOne(req: Request, dto: SaveMenuItemDTO): Promise<MenuItemEntity> {
     const user = getUserFromRequest(req);
 
     const parentMenuItemId = dto.menuItem;
@@ -31,7 +31,7 @@ export class MenuItemService extends TypeOrmCrudService<MenuItem> {
         throw new HttpException(MENU_ITEM.PARENT_REQUIRED, 400);
       }
 
-      const parentMenuItem = await getRepository(MenuItem).findOne(parentMenuItemId);
+      const parentMenuItem = await getRepository(MenuItemEntity).findOne(parentMenuItemId);
 
       if (!parentMenuItem) {
         throw new HttpException(MENU_ITEM.PARENT_NOT_FOUND, 400);
@@ -66,7 +66,7 @@ export class MenuItemService extends TypeOrmCrudService<MenuItem> {
         throw new HttpException(MENU_ITEM.PARENT_REQUIRED, 400);
       }
 
-      const parentMenuItem = await getRepository(MenuItem).findOne(parentMenuItemId);
+      const parentMenuItem = await getRepository(MenuItemEntity).findOne(parentMenuItemId);
 
       if (!parentMenuItem) {
         throw new HttpException(MENU_ITEM.PARENT_NOT_FOUND, 400);

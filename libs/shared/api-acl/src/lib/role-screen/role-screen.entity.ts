@@ -13,11 +13,11 @@ export class RoleScreenEntity {
   @PrimaryGeneratedColumn()
   roleScreenId: number;
 
-  @ManyToOne((tye) => RoleEntity, (role) => role.roleScreens, { onDelete: 'CASCADE' })
+  @ManyToOne(() => RoleEntity, (role) => role.roleScreens, { onDelete: 'CASCADE' })
   @JoinColumn({ name: 'role_id', referencedColumnName: 'roleId' })
   role: RoleEntity;
 
-  @ManyToOne((type) => ScreenEntity, (screen) => screen.roleScreens, { onDelete: 'CASCADE' })
+  @ManyToOne(() => ScreenEntity, (screen) => screen.roleScreens, { onDelete: 'CASCADE' })
   @JoinColumn({ name: 'screen_id', referencedColumnName: 'screenId' })
   screen: ScreenEntity;
 }

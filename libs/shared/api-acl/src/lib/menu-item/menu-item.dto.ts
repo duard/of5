@@ -1,7 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
+import { DTO } from '@of5/shared/api-shared';
 import { IsNotEmpty, IsOptional, MaxLength } from 'class-validator';
-import { MenuItem } from 'src/entities/menu-item.entity';
-import { DTO } from 'src/enums/translate/dto.enum';
+import { MenuItemEntity } from './menu-item.entity';
 
 export class SaveMenuItemDTO {
   @ApiProperty({
@@ -38,7 +38,7 @@ export class SaveMenuItemDTO {
     description: 'Caso o tipo for sub item: false, então este atributo passa a ser obrigatório'
   })
   @IsOptional()
-  menuItem: MenuItem;
+  menuItem: MenuItemEntity;
 }
 
 export class UpdateMenuItemDTO {
@@ -76,5 +76,5 @@ export class UpdateMenuItemDTO {
     description: 'Caso o tipo for sub item: false, então este atributo passa a ser obrigatório'
   })
   @IsOptional()
-  menuItem: MenuItem;
+  menuItem: MenuItemEntity;
 }

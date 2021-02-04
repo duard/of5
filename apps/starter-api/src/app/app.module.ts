@@ -8,10 +8,12 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { config } from './config';
 import { DatabaseConfig } from './database.config';
+import { ApiSharedModule } from '@of5/shared/api-shared';
 
 @Module({
   imports: [
     ApiCoreModule,
+    ApiSharedModule,
     ConfigModule.forRoot({
       isGlobal: true,
       load: [config]

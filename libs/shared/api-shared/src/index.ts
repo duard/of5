@@ -42,4 +42,7 @@ export * from './lib/utils/search-transform.utils';
 export * from './lib/services/aws/aws.module';
 export * from './lib/services/aws/aws.service';
 
-export * from './lib/utils/functions';
+// export * from './lib/utils/functions';
+export * from './lib/config/locale.config';
+export * from './lib/config/mailConfig.config';
+export * from './lib/config/swagger.config';

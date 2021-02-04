@@ -1,18 +1,18 @@
 import { Body, Controller, Param, Req, UseGuards, UseInterceptors } from '@nestjs/common';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { Crud, CrudController, Override } from '@nestjsx/crud';
+import { ACL_SCREEN, ErrorService } from '@of5/shared/api-shared';
 import { Request } from 'express';
-import { GlobalAcl } from 'src/acl/global-acl';
-import { MenuGroupCreateDTO, MenuGroupUpdateDTO } from 'src/dtos/menu-group.dto';
-import { MenuGroup } from 'src/entities/menu-group.entity';
-import { ACL_SCREEN } from 'src/enums/acl/screen.enum';
+import { GlobalAcl } from '../acl/global-acl';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
-import { ErrorService } from '../error/error.service';
+import { MenuGroupCreateDTO, MenuGroupUpdateDTO } from './menu-group.dto';
+import { MenuGroupEntity } from './menu-group.entity';
+
 import { MenuGroupService } from './menu-group.service';
 
 @Crud({
   model: {
-    type: MenuGroup
+    type: MenuGroupEntity
   },
   routes: {
     exclude: ['deleteOneBase', 'updateOneBase', 'createManyBase'],
@@ -45,7 +45,7 @@ import { MenuGroupService } from './menu-group.service';
 @UseGuards(JwtAuthGuard)
 @ApiBearerAuth()
 @UseInterceptors(new GlobalAcl(ACL_SCREEN.MenuGroup))
-export class MenuGroupController implements CrudController<MenuGroup> {
+export class MenuGroupController implements CrudController<MenuGroupEntity> {
   constructor(public service: MenuGroupService) {}
 
   @Override('createOneBase')

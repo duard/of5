@@ -1,6 +1,9 @@
 import { Module } from '@nestjs/common';
-import { AccountModule } from './account/account.module';
+import { ApiSharedModule, localeConfig } from '@of5/shared/api-shared';
+import { I18nModule } from 'nestjs-i18n';
 
+import { AccountModule } from './account/account.module';
+import { AclModule } from './acl/acl.module';
 import { ActionModule } from './action/action.module';
 import { AuthModule } from './auth/auth.module';
 import { FilterModule } from './filter/filter.module';
@@ -14,9 +17,10 @@ import { UsersModule } from './users/users.module';
 
 @Module({
   imports: [
+    ApiSharedModule,
     // MailerModule.forRoot(mailConfig),
     AuthModule,
-    // I18nModule.forRoot(localeConfig),
+    I18nModule.forRoot(localeConfig),
     UsersModule,
     UserGroupModule,
     MenuItemModule,
@@ -26,8 +30,8 @@ import { UsersModule } from './users/users.module';
     ScreenModule,
     ActionModule,
     RoleModule,
-    FilterModule
-    // AclModule,
+    FilterModule,
+    AclModule
   ],
   controllers: [],
   providers: [],

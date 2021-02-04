@@ -1,6 +1,7 @@
 import { Controller, Get, Param, Query, Req } from '@nestjs/common';
+import { ErrorService } from '@of5/shared/api-shared';
 import { Request } from 'express';
-import { ErrorService } from '../error/error.service';
+
 import { ParameterService } from './parameter.service';
 
 @Controller('unauth-parameters')

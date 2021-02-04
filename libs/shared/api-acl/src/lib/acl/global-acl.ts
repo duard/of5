@@ -1,22 +1,24 @@
 import { CallHandler, ExecutionContext, HttpException, HttpStatus, Logger, NestInterceptor } from '@nestjs/common';
+import { ACL_ACTION, ACTION_TYPE } from '@of5/shared/api-shared';
+import { User } from 'aws-sdk/clients/appstream';
 import { Observable } from 'rxjs';
+import { Action } from 'rxjs/internal/scheduler/Action';
 import { catchError, map } from 'rxjs/operators';
-import { ActionScreen } from 'src/entities/action-screen.entity';
-import { Action } from 'src/entities/action.entity';
-import { Filter } from 'src/entities/filter.entity';
-import { Member } from 'src/entities/member.entity';
-import { RoleAction } from 'src/entities/role-action.entity';
-import { RoleFilter } from 'src/entities/role-filter.entity';
-import { RoleScreen } from 'src/entities/role-screen.entity';
-import { Role } from 'src/entities/role.entity';
-import { RoleGroup } from 'src/entities/roule-group.entity';
-import { Screen } from 'src/entities/screen.entity';
-import { UserGroup } from 'src/entities/user-group.entity';
-import { User } from 'src/entities/user.entity';
-import { ACTION_TYPE } from 'src/enums/acl/action-type.enum';
-import { ACL_ACTION } from 'src/enums/acl/action.enum';
-import { AclService } from 'src/modules/acl/acl.service';
 import { createQueryBuilder, getConnection } from 'typeorm';
+
+import { ActionScreenEntity } from '../action-screen/action-screen.entity';
+import { ActionEntity } from '../action/action.entity';
+import { FilterEntity } from '../filter/filter.entity';
+import { MemberEntity } from '../member/member.entity';
+import { RoleActionEntity } from '../role-action/role-action.entity';
+import { RoleFilterEntity } from '../role-filter/role-filter.entity';
+import { RoleGroupEntity } from '../role-group/roule-group.entity';
+import { RoleScreenEntity } from '../role-screen/role-screen.entity';
+import { RoleEntity } from '../role/role.entity';
+import { ScreenEntity } from '../screen/screen.entity';
+import { UserGroupEntity } from '../user-group/user-group.entity';
+import { UserEntity } from '../users/user.entity';
+import { AclService } from './acl.service';
 
 export class GlobalAcl implements NestInterceptor {
   private logger: Logger;
@@ -50,18 +52,18 @@ export class GlobalAcl implements NestInterceptor {
   }
 
   async start(): Promise<void> {
-    const role = getConnection().getRepository(Role);
-    const filter = getConnection().getRepository(Filter);
-    const roleFilter = getConnection().getRepository(RoleFilter);
-    const action = getConnection().getRepository(Action);
-    const roleAction = getConnection().getRepository(RoleAction);
-    const screen = getConnection().getRepository(Screen);
-    const roleScreen = getConnection().getRepository(RoleScreen);
-    const member = getConnection().getRepository(Member);
-    const userGroup = getConnection().getRepository(UserGroup);
-    const user = getConnection().getRepository(User);
-    const roleGroup = getConnection().getRepository(RoleGroup);
-    const actionScreen = getConnection().getRepository(ActionScreen);
+    const role = getConnection().getRepository(RoleEntity);
+    const filter = getConnection().getRepository(FilterEntity);
+    const roleFilter = getConnection().getRepository(RoleFilterEntity);
+    const action = getConnection().getRepository(ActionEntity);
+    const roleAction = getConnection().getRepository(RoleActionEntity);
+    const screen = getConnection().getRepository(ScreenEntity);
+    const roleScreen = getConnection().getRepository(RoleScreenEntity);
+    const member = getConnection().getRepository(MemberEntity);
+    const userGroup = getConnection().getRepository(UserGroupEntity);
+    const user = getConnection().getRepository(UserEntity);
+    const roleGroup = getConnection().getRepository(RoleGroupEntity);
+    const actionScreen = getConnection().getRepository(ActionScreenEntity);
     this.aclService = new AclService(
       role,
       filter,
@@ -108,16 +110,16 @@ export class GlobalAcl implements NestInterceptor {
     return next.handle();
   }
 
-  async getManyBase(user: User, req: any, next: CallHandler): Promise<Observable<any>> {
+  async getManyBase(user: UserEntity, req: any, next: CallHandler): Promise<Observable<any>> {
     const { canActivate, actions } = await this.aclService.aclData(user, 'ALL', this.SCREEN);
 
     if (!canActivate) {
       throw new HttpException('Você não tem permissões para acessar o recurso', HttpStatus.FORBIDDEN);
     }
 
-    const actionsRows: Action[] = actions.filter((a) => a.type == ACTION_TYPE.ROW);
-    const actionsGeneral: Action[] = actions.filter((a) => a.type == ACTION_TYPE.GENERAL);
-    const actionsSelect: Action[] = actions.filter((a) => a.type == ACTION_TYPE.SELECT);
+    const actionsRows: ActionEntity[] = actions.filter((a) => a.type == ACTION_TYPE.ROW);
+    const actionsGeneral: ActionEntity[] = actions.filter((a) => a.type == ACTION_TYPE.GENERAL);
+    const actionsSelect: ActionEntity[] = actions.filter((a) => a.type == ACTION_TYPE.SELECT);
 
     // Injetar filtros da tela
     await this.processFilter(req, user);
@@ -125,7 +127,8 @@ export class GlobalAcl implements NestInterceptor {
     return next.handle().pipe(
       map(async (valor: any) => {
         if (valor) {
-          if (valor.hasOwnProperty('data')) {
+          // if (valor.hasOwnProperty('data')) {
+          if (valor.prototype.hasOwnProperty.call('data')) {
             valor['actions'] = {
               select: actionsSelect,
               general: actionsGeneral
@@ -157,7 +160,7 @@ export class GlobalAcl implements NestInterceptor {
     );
   }
 
-  async createManyBase(user: User, req: any, next: CallHandler): Promise<Observable<any>> {
+  async createManyBase(user: UserEntity, req: any, next: CallHandler): Promise<Observable<any>> {
     const { canActivate, actions } = await this.aclService.aclData(user, ACL_ACTION.ADD, this.SCREEN);
 
     if (!canActivate) {
@@ -177,7 +180,7 @@ export class GlobalAcl implements NestInterceptor {
     );
   }
 
-  async updateOneBase(user: User, req: any, next: CallHandler): Promise<Observable<any>> {
+  async updateOneBase(user: UserEntity, req: any, next: CallHandler): Promise<Observable<any>> {
     const { canActivate, actions } = await this.aclService.aclData(user, ACL_ACTION.EDIT, this.SCREEN);
 
     if (!canActivate) {
@@ -197,7 +200,7 @@ export class GlobalAcl implements NestInterceptor {
     );
   }
 
-  async createOneBase(user: User, req: any, next: CallHandler): Promise<Observable<any>> {
+  async createOneBase(user: UserEntity, req: any, next: CallHandler): Promise<Observable<any>> {
     const { canActivate, actions } = await this.aclService.aclData(user, ACL_ACTION.ADD, this.SCREEN);
 
     if (!canActivate) {
@@ -217,7 +220,7 @@ export class GlobalAcl implements NestInterceptor {
     );
   }
 
-  async deleteOneBase(user: User, req: any, next: CallHandler): Promise<Observable<any>> {
+  async deleteOneBase(user: UserEntity, req: any, next: CallHandler): Promise<Observable<any>> {
     const { canActivate, actions } = await this.aclService.aclData(user, ACL_ACTION.DELETE, this.SCREEN);
 
     if (!canActivate) {
@@ -237,7 +240,7 @@ export class GlobalAcl implements NestInterceptor {
     );
   }
 
-  async deleteManyBase(user: User, req: any, next: CallHandler): Promise<Observable<any>> {
+  async deleteManyBase(user: UserEntity, req: any, next: CallHandler): Promise<Observable<any>> {
     const { canActivate, actions } = await this.aclService.aclData(user, ACL_ACTION.DELETE_MANY, this.SCREEN);
 
     if (!canActivate) {
@@ -257,7 +260,7 @@ export class GlobalAcl implements NestInterceptor {
     );
   }
 
-  async getOneBase(user: User, req: any, next: CallHandler): Promise<Observable<any>> {
+  async getOneBase(user: UserEntity, req: any, next: CallHandler): Promise<Observable<any>> {
     const { canActivate, actions } = await this.aclService.aclData(user, ACL_ACTION.VIEW, this.SCREEN);
 
     if (!canActivate) {
@@ -277,7 +280,7 @@ export class GlobalAcl implements NestInterceptor {
     );
   }
 
-  async replaceOneBase(user: User, req: any, next: CallHandler): Promise<Observable<any>> {
+  async replaceOneBase(user: UserEntity, req: any, next: CallHandler): Promise<Observable<any>> {
     const { canActivate, actions } = await this.aclService.aclData(user, ACL_ACTION.EDIT, this.SCREEN);
 
     if (!canActivate) {
@@ -297,7 +300,7 @@ export class GlobalAcl implements NestInterceptor {
     );
   }
 
-  async toggleStatus(user: User, req: any, next: CallHandler): Promise<Observable<any>> {
+  async toggleStatus(user: UserEntity, req: any, next: CallHandler): Promise<Observable<any>> {
     const { canActivate, actions } = await this.aclService.aclData(user, ACL_ACTION.TOGGLE_STATUS, this.SCREEN);
 
     if (!canActivate) {
@@ -317,7 +320,7 @@ export class GlobalAcl implements NestInterceptor {
     );
   }
 
-  async deleteMany(user: User, req: any, next: CallHandler): Promise<Observable<any>> {
+  async deleteMany(user: UserEntity, req: any, next: CallHandler): Promise<Observable<any>> {
     const { canActivate, actions } = await this.aclService.aclData(user, ACL_ACTION.DELETE_MANY, this.SCREEN);
 
     if (!canActivate) {
@@ -337,8 +340,8 @@ export class GlobalAcl implements NestInterceptor {
     );
   }
 
-  private async processFilter(req: any, user: User) {
-    const filters = await createQueryBuilder(Filter, 'filter')
+  private async processFilter(req: any, user: UserEntity) {
+    const filters = await createQueryBuilder(FilterEntity, 'filter')
       .leftJoin('filter.screen', 'screen')
       .leftJoin('filter.roleFilters', 'roleFilters')
       .leftJoin('roleFilters.role', 'role')

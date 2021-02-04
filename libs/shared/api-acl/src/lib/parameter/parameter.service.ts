@@ -2,10 +2,11 @@ import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Override } from '@nestjsx/crud';
 import { TypeOrmCrudService } from '@nestjsx/crud-typeorm';
-import { EXCEPTION, getUserFromRequest, PARAMETER } from '@of5/shared/api-shared';
+import { EXCEPTION, PARAMETER } from '@of5/shared/api-shared';
 import { Request } from 'express';
 import { createQueryBuilder, Repository } from 'typeorm';
 
+import { getUserFromRequest } from '../functions';
 import { CreateParameterDTO, UpdateParameterByKeyDTO, UpdateParameterDTO } from './parameter.dto';
 import { ParameterEntity } from './parameter.entity';
 
