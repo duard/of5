@@ -1,6 +1,6 @@
 # Basic Workspace for New Projects
 
-[Gráfico de dependencias](dep-graph.jpeg)
+![Gráfico de dependencias](depgraph.jpeg).
 
 #### rodando os projetos
 
