@@ -3,6 +3,6 @@ export interface BinaryFile {
   originalname: string;
   encoding: string;
   mimetype: string;
-  buffer: Buffer;
+  buffer: any;
   size: number;
 }

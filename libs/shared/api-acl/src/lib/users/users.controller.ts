@@ -3,7 +3,7 @@ import { FileInterceptor } from '@nestjs/platform-express';
 import { ApiBearerAuth, ApiParam, ApiTags } from '@nestjs/swagger';
 import { Crud, CrudController, Override } from '@nestjsx/crud';
 import { ErrorService } from '@of5/shared/api-shared';
-import { BinaryFile } from '@of5/shared/interfaces';
+import { BinaryFile, Message } from '@of5/shared/interfaces';
 
 import { UserReq } from './user.decorator';
 import { UserCreateDTO, UserUpdateDTO } from './user.dto';
@@ -48,7 +48,12 @@ import { UsersService } from './users.service';
 @ApiTags('Users')
 @ApiBearerAuth()
 export class UsersController implements CrudController<UserEntity> {
-  constructor(public service: UsersService) {}
+  msg: Message;
+  constructor(public service: UsersService) {
+    // this.msg.message = 'Testando';
+
+    console.log('msg', this.msg);
+  }
 
   @Override('createOneBase')
   @ApiParam({

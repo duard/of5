@@ -1,21 +1,21 @@
-import { Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import { BaseMysqlEntity } from '@of5/shared/api-shared';
+import { Entity, JoinColumn, ManyToOne } from 'typeorm';
 
-import { ActionEntity } from '..';
-import { ScreenEntity } from '..';
+import { ActionEntity, ScreenEntity } from '..';
 
-@Entity()
-export class ActionScreenEntity {
+@Entity({ name: 'actions_screen' })
+export class ActionScreenEntity extends BaseMysqlEntity {
   constructor(screen?: ScreenEntity, action?: ActionEntity) {
+    super();
     this.screen = screen;
     this.action = action;
   }
 
-  @PrimaryGeneratedColumn()
-  actionScreenId: number;
-
   @ManyToOne(() => ScreenEntity, (screen) => screen.actionsScreen, { onDelete: 'CASCADE' })
+  @JoinColumn({ name: 'screen_id', referencedColumnName: 'id' })
   screen: ScreenEntity;
 
   @ManyToOne(() => ActionEntity, (action) => action.actionsScreen)
+  @JoinColumn({ name: 'action_id', referencedColumnName: 'id' })
   action: ActionEntity;
 }

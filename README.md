@@ -1,5 +1,7 @@
 # Basic Workspace for New Projects
 
+![Modelo](modelo.jpeg).
+
 ![Gráfico de dependencias](depgraph.jpeg).
 
 #### rodando os projetos

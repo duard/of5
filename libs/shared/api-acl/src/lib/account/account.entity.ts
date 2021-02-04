@@ -2,7 +2,7 @@ import { BaseMysqlEntity } from '@of5/shared/api-shared';
 import { Column, Entity, JoinColumn, ManyToOne } from 'typeorm';
 import { UserEntity } from '..';
 
-@Entity()
+@Entity({ name: 'account' })
 export class AccountEntity extends BaseMysqlEntity {
   @Column({ name: 'description', type: 'varchar', comment: 'Descrição' })
   description: string;

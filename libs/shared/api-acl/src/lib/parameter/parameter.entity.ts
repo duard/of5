@@ -18,12 +18,12 @@ export class ParameterEntity extends BaseMysqlEntity {
   oldValue: string;
 
   // Usuário que criou o parametro
-  @ManyToOne((type) => UserEntity, (user) => user.createdParameters, { nullable: true, onDelete: 'SET NULL' })
+  @ManyToOne(() => UserEntity, (user) => user.createdParameters, { nullable: true, onDelete: 'SET NULL' })
   @JoinColumn({ name: 'created_by', referencedColumnName: 'id' })
   createdBy: UserEntity;
 
   // Usuário que atualizou o parametro
-  @ManyToOne((type) => UserEntity, (user) => user.updatedParameters, { nullable: true, onDelete: 'SET NULL' })
+  @ManyToOne(() => UserEntity, (user) => user.updatedParameters, { nullable: true, onDelete: 'SET NULL' })
   @JoinColumn({ name: 'updated_by', referencedColumnName: 'id' })
   updatedBy: UserEntity;
 }

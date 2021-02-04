@@ -88,7 +88,7 @@ export class RoleService extends TypeOrmCrudService<RoleEntity> {
     const filters = await createQueryBuilder(FilterEntity, 'filter')
       .leftJoinAndSelect('filter.roleFilters', 'roleFilters')
       .leftJoinAndSelect('roleFilters.role', 'role')
-      .where('role.roleId = :roleId', { roleId: id })
+      .where('role.id = :id', { id: id })
       .getMany();
 
     filters.forEach((f) => delete f.roleFilters);
@@ -104,7 +104,7 @@ export class RoleService extends TypeOrmCrudService<RoleEntity> {
 
       const exists = await this.repo
         .createQueryBuilder('role')
-        .where('UPPER(role.name) = UPPER(:name) AND role.roleId <> :id', { name: dto.name, id })
+        .where('UPPER(role.name) = UPPER(:name) AND role.id <> :id', { name: dto.name, id })
         .getOne();
 
       if (exists) {
@@ -117,7 +117,7 @@ export class RoleService extends TypeOrmCrudService<RoleEntity> {
       }
 
       const role = new RoleEntity();
-      role.roleId = id;
+      role.id = id;
 
       if (dto.screens.length) {
         const screens = await qr.manager.getRepository(ScreenEntity).findByIds(dto.screens);
@@ -132,7 +132,7 @@ export class RoleService extends TypeOrmCrudService<RoleEntity> {
           .createQueryBuilder(RoleScreenEntity, 'roleScreen')
           .leftJoinAndSelect('roleScreen.role', 'role')
           .delete()
-          .where('role.roleId = :roleId', { roleId: id })
+          .where('role.id = :id', { id: id })
           .execute();
 
         await qr.manager.getRepository(RoleScreenEntity).save(roleScreens);
@@ -151,7 +151,7 @@ export class RoleService extends TypeOrmCrudService<RoleEntity> {
           .createQueryBuilder(RoleActionEntity, 'roleAction')
           .leftJoinAndSelect('roleAction.role', 'role')
           .delete()
-          .where('role.roleId = :roleId', { roleId: id })
+          .where('role.id = :id', { id: id })
           .execute();
 
         await qr.manager.getRepository(RoleActionEntity).save(roleActions);
@@ -165,7 +165,7 @@ export class RoleService extends TypeOrmCrudService<RoleEntity> {
     }
   }
 
-  async createOrReplaceFilters(roleId: number, dto: SetFiltersDTO) {
+  async createOrReplaceFilters(id: number, dto: SetFiltersDTO) {
     const qr = this.connection.createQueryRunner();
     try {
       await qr.connect();
@@ -174,7 +174,7 @@ export class RoleService extends TypeOrmCrudService<RoleEntity> {
       // Validar o objeto de DTO
       this.validateSetFiltersDto(dto);
 
-      const role = await qr.manager.getRepository(RoleEntity).findOne(roleId);
+      const role = await qr.manager.getRepository(RoleEntity).findOne(id);
 
       if (!role) {
         throw new HttpException('Role inválido', HttpStatus.BAD_REQUEST);
@@ -183,7 +183,7 @@ export class RoleService extends TypeOrmCrudService<RoleEntity> {
       const filters = await createQueryBuilder(FilterEntity, 'filter')
         .leftJoinAndSelect('filter.roleFilters', 'roleFilters')
         .leftJoinAndSelect('roleFilters.role', 'role')
-        .where('role.roleId = :roleId', { roleId })
+        .where('role.id = :id', { id })
         .getMany();
 
       const filterIds = filters.map((f) => f.filterId);
@@ -224,7 +224,7 @@ export class RoleService extends TypeOrmCrudService<RoleEntity> {
             .createQueryBuilder('roleFilter')
             .leftJoin('roleFilter.role', 'role')
             .delete()
-            .where('role = :roleId', { roleId: role.roleId })
+            .where('role = :id', { id: role.id })
             .execute();
 
           await qr.manager.getRepository(RoleFilterEntity).save(roleFilters);
@@ -238,15 +238,15 @@ export class RoleService extends TypeOrmCrudService<RoleEntity> {
     }
   }
 
-  async deleteFilter(roleId: number, filterId: number) {
-    if (!(await this.repo.findOne(roleId))) {
+  async deleteFilter(id: number, filterId: number) {
+    if (!(await this.repo.findOne(id))) {
       throw new HttpException('Role não encontrado', HttpStatus.NOT_FOUND);
     }
 
     const filterToDelete = await createQueryBuilder(FilterEntity, 'filter')
       .leftJoinAndSelect('filter.roleFilters', 'roleFilters')
       .leftJoinAndSelect('roleFilters.role', 'role')
-      .where('role.roleId = :roleId AND filter.filterId = :filterId', { roleId, filterId })
+      .where('role.id = :id AND filter.filterId = :filterId', { id, filterId })
       .getOne();
 
     if (!filterToDelete) {
@@ -258,15 +258,15 @@ export class RoleService extends TypeOrmCrudService<RoleEntity> {
     return;
   }
 
-  async deleteAllFilters(roleId: number) {
-    if (!(await this.repo.findOne(roleId))) {
+  async deleteAllFilters(id: number) {
+    if (!(await this.repo.findOne(id))) {
       throw new HttpException('Role não encontrado', HttpStatus.NOT_FOUND);
     }
 
     const filterToDelete = await createQueryBuilder(FilterEntity, 'filter')
       .leftJoinAndSelect('filter.roleFilters', 'roleFilters')
       .leftJoinAndSelect('roleFilters.role', 'role')
-      .where('role.roleId = :roleId', { roleId })
+      .where('role.id = :id', { id })
       .getMany();
 
     const filterIds = filterToDelete.map((f) => f.filterId);

@@ -135,7 +135,8 @@
             "outputPath": "dist/apps/starter-api",
             "main": "apps/starter-api/src/main.ts",
             "tsConfig": "apps/starter-api/tsconfig.app.json",
-            "assets": ["apps/starter-api/src/assets"]
+            "assets": ["apps/starter-api/src/assets"],
+            "showCircularDependencies": false
           },
           "configurations": {
             "production": {

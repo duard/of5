@@ -75,11 +75,7 @@ export class AclService {
 
     const qb = createQueryBuilder(RoleFilterEntity, 'roleFilter');
 
-    await qb
-      .leftJoinAndSelect('roleFilter.role', 'role')
-      .delete()
-      .where('role.roleId = :roleId', { roleId: role.roleId })
-      .execute();
+    await qb.leftJoinAndSelect('roleFilter.role', 'role').delete().where('role.id = :id', { id: role.id }).execute();
 
     const toSave: RoleFilterEntity[] = [];
 
@@ -104,11 +100,7 @@ export class AclService {
 
     const qb = createQueryBuilder(RoleActionEntity, 'roleAction');
 
-    await qb
-      .leftJoinAndSelect('roleAction.role', 'role')
-      .delete()
-      .where('role.roleId = :roleId', { roleId: role.roleId })
-      .execute();
+    await qb.leftJoinAndSelect('roleAction.role', 'role').delete().where('role.id = :id', { id: role.id }).execute();
 
     const toSave: RoleActionEntity[] = [];
 
@@ -162,11 +154,7 @@ export class AclService {
 
     const qb = createQueryBuilder(RoleScreenEntity, 'roleScreen');
 
-    await qb
-      .leftJoinAndSelect('roleScreen.role', 'role')
-      .delete()
-      .where('role.roleId = :roleId', { roleId: role.roleId })
-      .execute();
+    await qb.leftJoinAndSelect('roleScreen.role', 'role').delete().where('role.id = :id', { id: role.id }).execute();
 
     const toSave: RoleScreenEntity[] = [];
 

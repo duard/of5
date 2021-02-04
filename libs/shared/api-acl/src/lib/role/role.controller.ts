@@ -12,7 +12,7 @@ import { RoleService } from './role.service';
 @Crud({
   model: { type: RoleEntity },
   params: {
-    id: { field: 'roleId', primary: true, type: 'number' }
+    id: { field: 'id', primary: true, type: 'number' }
   },
   routes: {
     exclude: ['updateOneBase']
@@ -65,23 +65,23 @@ export class RoleController implements CrudController<RoleEntity> {
     }
   }
 
-  @Delete(':roleId/filters/:filterId')
+  @Delete(':id/filters/:filterId')
   @HttpCode(HttpStatus.NO_CONTENT)
   @ApiNoContentResponse({ description: 'Exclui um filter de um role' })
-  async deleteFilter(@Param('roleId') roleId: number, @Param('filterId') filterId: number) {
+  async deleteFilter(@Param('id') id: number, @Param('filterId') filterId: number) {
     try {
-      return await this.service.deleteFilter(roleId, filterId);
+      return await this.service.deleteFilter(id, filterId);
     } catch (err) {
       await ErrorService.next(err);
     }
   }
 
-  @Delete(':roleId/filters')
+  @Delete(':id/filters')
   @HttpCode(HttpStatus.NO_CONTENT)
   @ApiNoContentResponse({ description: 'Exclui todos os filtros de um role' })
-  async deleteAllFilters(@Param('roleId') roleId: number) {
+  async deleteAllFilters(@Param('id') id: number) {
     try {
-      return await this.service.deleteAllFilters(roleId);
+      return await this.service.deleteAllFilters(id);
     } catch (err) {
       await ErrorService.next(err);
     }

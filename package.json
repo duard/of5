@@ -113,7 +113,7 @@
     "@nrwl/tao": "11.2.7",
     "@nrwl/workspace": "11.2.7",
     "@types/jest": "26.0.8",
-    "@types/node": "12.12.38",
+    "@types/node": "^12.19.16",
     "@typescript-eslint/eslint-plugin": "^4.3.0",
     "@typescript-eslint/parser": "4.3.0",
     "cypress": "^6.0.1",

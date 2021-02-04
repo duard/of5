@@ -1,5 +1,5 @@
-import { SCREEN_TYPE } from '@of5/shared/api-shared';
-import { Column, Entity, OneToMany, PrimaryGeneratedColumn, Tree, TreeChildren, TreeParent } from 'typeorm';
+import { BaseMysqlEntity, SCREEN_TYPE } from '@of5/shared/api-shared';
+import { Column, Entity, OneToMany, Tree, TreeChildren, TreeParent } from 'typeorm';
 
 import { ActionScreenEntity } from '../action-screen/action-screen.entity';
 import { FilterEntity } from '../filter/filter.entity';
@@ -7,10 +7,7 @@ import { RoleScreenEntity } from '../role-screen/role-screen.entity';
 
 @Entity({ name: 'screen' })
 @Tree('nested-set')
-export class ScreenEntity {
-  @PrimaryGeneratedColumn()
-  screenId: number;
-
+export class ScreenEntity extends BaseMysqlEntity {
   @Column()
   label: string;
 

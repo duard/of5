@@ -1,23 +1,21 @@
-import { Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import { BaseMysqlEntity } from '@of5/shared/api-shared';
+import { Entity, JoinColumn, ManyToOne } from 'typeorm';
 
-import { FilterEntity } from '..';
-import { RoleEntity } from '..';
+import { FilterEntity, RoleEntity } from '..';
 
-@Entity({ name: 'role_filter' })
-export class RoleFilterEntity {
+@Entity({ name: 'role_filters' })
+export class RoleFilterEntity extends BaseMysqlEntity {
   constructor(role?: RoleEntity, filter?: FilterEntity) {
+    super();
     this.filter = filter;
     this.role = role;
   }
 
-  @PrimaryGeneratedColumn()
-  roleFilterId: number;
-
-  @ManyToOne((type) => RoleEntity, (role) => role.roleFilters, { onDelete: 'CASCADE' })
-  @JoinColumn({ name: 'role_id', referencedColumnName: 'roleId' })
+  @ManyToOne(() => RoleEntity, (role) => role.roleFilters, { onDelete: 'CASCADE' })
+  @JoinColumn({ name: 'role_id', referencedColumnName: 'id' })
   role: RoleEntity;
 
-  @ManyToOne((type) => FilterEntity, (filter) => filter.roleFilters, { onDelete: 'CASCADE' })
-  @JoinColumn({ name: 'filter_id', referencedColumnName: 'filterId' })
+  @ManyToOne(() => FilterEntity, (filter) => filter.roleFilters, { onDelete: 'CASCADE' })
+  @JoinColumn({ name: 'filter_id', referencedColumnName: 'id' })
   filter: FilterEntity;
 }

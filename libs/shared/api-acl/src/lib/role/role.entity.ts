@@ -1,15 +1,10 @@
-import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import { BaseMysqlEntity } from '@of5/shared/api-shared';
+import { Column, Entity, OneToMany } from 'typeorm';
 
-import { RoleActionEntity } from '..';
-import { RoleFilterEntity } from '..';
-import { RoleGroupEntity } from '..';
-import { RoleScreenEntity } from '..';
+import { RoleActionEntity, RoleFilterEntity, RoleGroupEntity, RoleScreenEntity } from '..';
 
-@Entity({ name: 'role' })
-export class RoleEntity {
-  @PrimaryGeneratedColumn()
-  roleId: number;
-
+@Entity({ name: 'roles' })
+export class RoleEntity extends BaseMysqlEntity {
   @Column()
   name: string;
 
