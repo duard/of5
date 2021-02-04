@@ -56,7 +56,8 @@ https://duncanhunter.gitbook.io/enterprise-angular-applications-with-ngrx-and-nx
 
 #### sobre o uso do git e commits
 
-https://dev.to/bhargavmantha/the-secret-to-configuring-eslint-prettier-prettier-eslint-plugin-in-vscode-for-angular-ts-and-js-project-51la https://beeman.dev/posts/set-up-and-configure-a-new-nx-workspace-1oh6/
+https://dev.to/bhargavmantha/the-secret-to-configuring-eslint-prettier-prettier-eslint-plugin-in-vscode-for-angular-ts-and-js-project-51la 
+https://beeman.dev/posts/set-up-and-configure-a-new-nx-workspace-1oh6/
 
 #### configurando shareds para todos os projetos
 
