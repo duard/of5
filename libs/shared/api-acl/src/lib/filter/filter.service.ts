@@ -3,7 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { TypeOrmCrudService } from '@nestjsx/crud-typeorm';
 import { Repository } from 'typeorm';
 
-import { UserEntity } from '../users/user.entity';
+import { UserEntity } from '..';
 import { UpdateFilterDTO } from './filter.dto';
 import { FilterEntity } from './filter.entity';
 

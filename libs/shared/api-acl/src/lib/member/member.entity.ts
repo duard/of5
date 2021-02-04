@@ -1,6 +1,6 @@
 import { Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
-import { UserGroupEntity } from '../user-group/user-group.entity';
-import { UserEntity } from '../users/user.entity';
+import { UserGroupEntity } from '..';
+import { UserEntity } from '..';
 
 @Entity({ name: 'members' })
 export class MemberEntity {
@@ -12,11 +12,11 @@ export class MemberEntity {
   @PrimaryGeneratedColumn({ name: 'member_id' })
   memberId: number;
 
-  @ManyToOne((type) => UserGroupEntity, (group) => group.members)
+  @ManyToOne(() => UserGroupEntity, (group) => group.members)
   @JoinColumn({ name: 'group_id', referencedColumnName: 'id' })
   group: UserGroupEntity;
 
-  @ManyToOne((type) => UserEntity, (user) => user.members)
+  @ManyToOne(() => UserEntity, (user) => user.members)
   @JoinColumn({ name: 'user_id', referencedColumnName: 'id' })
   user: UserEntity;
 }

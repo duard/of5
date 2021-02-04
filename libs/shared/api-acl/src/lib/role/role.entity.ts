@@ -1,9 +1,9 @@
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 
-import { RoleActionEntity } from '../role-action/role-action.entity';
-import { RoleFilterEntity } from '../role-filter/role-filter.entity';
-import { RoleGroupEntity } from '../role-group/roule-group.entity';
-import { RoleScreenEntity } from '../role-screen/role-screen.entity';
+import { RoleActionEntity } from '..';
+import { RoleFilterEntity } from '..';
+import { RoleGroupEntity } from '..';
+import { RoleScreenEntity } from '..';
 
 @Entity({ name: 'role' })
 export class RoleEntity {

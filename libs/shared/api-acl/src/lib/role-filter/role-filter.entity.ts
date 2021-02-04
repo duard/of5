@@ -1,7 +1,7 @@
 import { Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 
-import { FilterEntity } from '../filter/filter.entity';
-import { RoleEntity } from '../role/role.entity';
+import { FilterEntity } from '..';
+import { RoleEntity } from '..';
 
 @Entity({ name: 'role_filter' })
 export class RoleFilterEntity {

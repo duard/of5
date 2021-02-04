@@ -1,6 +1,6 @@
 import { Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 import { RoleFilterEntity } from '../role-filter/role-filter.entity';
-import { ScreenEntity } from '../screen/screen.entity';
+import { ScreenEntity } from '..';
 
 @Entity({ name: 'filter' })
 export class FilterEntity {
@@ -23,9 +23,9 @@ export class FilterEntity {
   @Column({ nullable: true })
   value: string;
 
-  @ManyToOne((type) => ScreenEntity, (screen) => screen.filters)
+  @ManyToOne(() => ScreenEntity, (screen) => screen.filters)
   screen: ScreenEntity;
 
-  @OneToMany((type) => RoleFilterEntity, (roleFilter) => roleFilter.filter, { onDelete: 'CASCADE' })
+  @OneToMany(() => RoleFilterEntity, (roleFilter) => roleFilter.filter, { onDelete: 'CASCADE' })
   roleFilters: RoleFilterEntity[];
 }

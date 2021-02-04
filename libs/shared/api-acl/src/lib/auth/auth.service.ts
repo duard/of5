@@ -8,7 +8,7 @@ import { createQueryBuilder, getConnection, getRepository, QueryRunner } from 't
 
 import { MemberEntity } from '../member/member.entity';
 import { UserGroupEntity } from '../user-group/user-group.entity';
-import { UserEntity } from '../users/user.entity';
+import { UserEntity } from '..';
 import { AuthSignInDto, AuthSignUpDto } from './auth.dto';
 
 @Injectable()

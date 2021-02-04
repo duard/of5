@@ -5,7 +5,7 @@ import { ErrorService } from '@of5/shared/api-shared';
 
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { UserReq } from '../users/user.decorator';
-import { UserEntity } from '../users/user.entity';
+import { UserEntity } from '..';
 import { CreateFilterDTO, UpdateFilterDTO } from './filter.dto';
 import { FilterEntity } from './filter.entity';
 import { FilterService } from './filter.service';

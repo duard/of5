@@ -1,7 +1,7 @@
 import { BaseMysqlEntity } from '@of5/shared/api-shared';
 import { Column, Entity, JoinColumn, ManyToOne, OneToMany } from 'typeorm';
 
-import { UserEntity } from '../users/user.entity';
+import { UserEntity } from '..';
 
 @Entity({ name: 'menu_itens' })
 export class MenuItemEntity extends BaseMysqlEntity {

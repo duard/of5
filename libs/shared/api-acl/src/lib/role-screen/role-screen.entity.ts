@@ -1,7 +1,7 @@
 import { Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 
-import { RoleEntity } from '../role/role.entity';
-import { ScreenEntity } from '../screen/screen.entity';
+import { RoleEntity } from '..';
+import { ScreenEntity } from '..';
 
 @Entity({ name: 'role_screen' })
 export class RoleScreenEntity {

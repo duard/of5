@@ -3,13 +3,13 @@ import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { Crud, CrudController, Override } from '@nestjsx/crud';
 import { ErrorService } from '@of5/shared/api-shared';
 
+import { ScreenEntity } from '..';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { ActionsOfScreenDTO, CreateScreenDTO, UpdateScreenDTO } from './screen.dto';
-import { ScreenEntity } from './screen.entity';
 import { ScreenService } from './screen.service';
 
 @Crud({
-  model: { type: Screen },
+  model: { type: ScreenEntity },
   params: {
     id: { field: 'screenId', primary: true, type: 'number' }
   },

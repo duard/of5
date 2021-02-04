@@ -1,6 +1,7 @@
+export * from './lib/index';
 export * from './lib/api-acl.module';
-export * from './lib/users/user.entity';
-export * from './lib/action/action.entity';
+// export * from './lib/users/user.entity';
+// export * from './lib/action/action.entity';
 // export * from './lib/account/account.dto';
 // export * from './lib/action/action.dto';
 // export * from './lib/auth/auth.dto';

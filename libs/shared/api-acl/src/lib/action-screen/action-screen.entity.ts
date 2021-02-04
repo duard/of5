@@ -1,7 +1,7 @@
 import { Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 
-import { ActionEntity } from '../action/action.entity';
-import { ScreenEntity } from '../screen/screen.entity';
+import { ActionEntity } from '..';
+import { ScreenEntity } from '..';
 
 @Entity()
 export class ActionScreenEntity {

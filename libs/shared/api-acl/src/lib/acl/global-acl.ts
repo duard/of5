@@ -17,7 +17,7 @@ import { RoleScreenEntity } from '../role-screen/role-screen.entity';
 import { RoleEntity } from '../role/role.entity';
 import { ScreenEntity } from '../screen/screen.entity';
 import { UserGroupEntity } from '../user-group/user-group.entity';
-import { UserEntity } from '../users/user.entity';
+import { UserEntity } from '..';
 import { AclService } from './acl.service';
 
 export class GlobalAcl implements NestInterceptor {

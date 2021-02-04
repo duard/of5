@@ -3,7 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { TypeOrmCrudService } from '@nestjsx/crud-typeorm';
 import { Equal, Repository } from 'typeorm';
 
-import { UserEntity } from '../users/user.entity';
+import { UserEntity } from '..';
 import { CreateActionDTO, UpdateActionDTO } from './action.dto';
 import { ActionEntity } from './action.entity';
 

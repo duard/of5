@@ -1,3 +1,4 @@
+export * from './account/account.entity';
 export * from './action/action.entity';
 export * from './action-screen/action-screen.entity';
 export * from './filter/filter.entity';
@@ -14,4 +15,3 @@ export * from './role-screen/role-screen.entity';
 export * from './screen/screen.entity';
 export * from './user-group/user-group.entity';
 export * from './users/user.entity';
-export * from './account/account.entity';

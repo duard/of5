@@ -4,7 +4,7 @@ import { Column, Entity, JoinColumn, ManyToMany, ManyToOne, OneToMany } from 'ty
 import { MemberEntity } from '../member/member.entity';
 import { MethodEntity } from '../method/method.entity';
 import { RoleGroupEntity } from '../role-group/roule-group.entity';
-import { UserEntity } from '../users/user.entity';
+import { UserEntity } from '..';
 
 @Entity({ name: 'user_groups' })
 export class UserGroupEntity extends BaseMysqlEntity {
