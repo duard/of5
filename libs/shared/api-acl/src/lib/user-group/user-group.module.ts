@@ -1,8 +1,8 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { UserGroupEntity } from '..';
 
 import { UserGroupController } from './user-group.controller';
-import { UserGroupEntity } from './user-group.entity';
 import { UserGroupService } from './user-group.service';
 
 @Module({

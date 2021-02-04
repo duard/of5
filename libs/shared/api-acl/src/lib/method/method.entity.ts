@@ -1,5 +1,5 @@
 import { Column, Entity, JoinColumn, JoinTable, ManyToMany, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
-import { UserGroupEntity } from '../user-group/user-group.entity';
+import { UserGroupEntity } from '..';
 
 @Entity({ name: 'method' })
 export class MethodEntity {

@@ -1,10 +1,7 @@
 import { BaseMysqlEntity } from '@of5/shared/api-shared';
 import { Column, Entity, JoinColumn, ManyToMany, ManyToOne, OneToMany } from 'typeorm';
 
-import { MemberEntity } from '../member/member.entity';
-import { MethodEntity } from '../method/method.entity';
-import { RoleGroupEntity } from '../role-group/roule-group.entity';
-import { UserEntity } from '..';
+import { MemberEntity, MethodEntity, RoleGroupEntity, UserEntity } from '..';
 
 @Entity({ name: 'user_groups' })
 export class UserGroupEntity extends BaseMysqlEntity {
