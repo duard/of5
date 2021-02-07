@@ -1,5 +1,5 @@
 import { BaseMysqlEntity, SCREEN_TYPE } from '@of5/shared/api-shared';
-import { Column, Entity, OneToMany, Tree, TreeChildren, TreeParent } from 'typeorm';
+import { Column, Entity, JoinColumn, OneToMany, Tree, TreeChildren, TreeParent } from 'typeorm';
 
 import { ActionScreenEntity, FilterEntity, RoleScreenEntity } from '..';
 
@@ -28,6 +28,7 @@ export class ScreenEntity extends BaseMysqlEntity {
   children: ScreenEntity[];
 
   @TreeParent()
+  @JoinColumn({ name: 'parent_id', referencedColumnName: 'id' })
   parent: ScreenEntity;
 
   @OneToMany(() => ActionScreenEntity, (as) => as.screen, { onDelete: 'CASCADE' })

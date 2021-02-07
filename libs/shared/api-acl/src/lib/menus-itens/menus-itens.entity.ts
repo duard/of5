@@ -29,7 +29,7 @@ export class MenuItemEntity extends BaseMysqlEntity {
     nullable: true,
     onDelete: 'SET NULL'
   })
-  @JoinColumn({ name: 'parent_menu', referencedColumnName: 'id' })
+  @JoinColumn({ name: 'parent_id', referencedColumnName: 'id' })
   parentMenuItem: MenuItemEntity;
 
   // Lista de menu item filhos deste menu item
