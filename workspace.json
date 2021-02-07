@@ -455,6 +455,202 @@
           }
         }
       }
+    },
+    "ngx-app": {
+      "projectType": "application",
+      "root": "apps/ngx-app",
+      "sourceRoot": "apps/ngx-app/src",
+      "prefix": "of5",
+      "targets": {
+        "build": {
+          "executor": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/apps/ngx-app",
+            "index": "apps/ngx-app/src/index.html",
+            "main": "apps/ngx-app/src/main.ts",
+            "polyfills": "apps/ngx-app/src/polyfills.ts",
+            "tsConfig": "apps/ngx-app/tsconfig.app.json",
+            "aot": true,
+            "assets": [
+              "apps/ngx-app/src/assets",
+              "apps/ngx-app/src/favicon.ico",
+              "apps/ngx-app/src/favicon.png",
+              {
+                "glob": "**/*",
+                "input": "node_modules/leaflet/dist/images",
+                "output": "/assets/img/markers"
+              }
+            ],
+            "styles": [
+              "node_modules/bootstrap/dist/css/bootstrap.css",
+              "node_modules/typeface-exo/index.css",
+              "node_modules/roboto-fontface/css/roboto/roboto-fontface.css",
+              "node_modules/ionicons/scss/ionicons.scss",
+              "node_modules/@fortawesome/fontawesome-free/css/all.css",
+              "node_modules/socicon/css/socicon.css",
+              "node_modules/nebular-icons/scss/nebular-icons.scss",
+              "node_modules/pace-js/templates/pace-theme-flash.tmpl.css",
+              "node_modules/leaflet/dist/leaflet.css",
+              "apps/ngx-app/src/styles.scss",
+              "libs/shared/ngx-admin/src/lib/@theme/styles/styles.scss"
+            ],
+
+            "stylePreprocessorOptions": {
+              "includePaths": ["libs/styles/src/", "libs/styles/src/lib/", "libs/styles/src/lib/"]
+            },
+
+            "scripts": [
+              "node_modules/pace-js/pace.min.js",
+              "node_modules/tinymce/tinymce.min.js",
+              "node_modules/tinymce/themes/modern/theme.min.js",
+              "node_modules/tinymce/plugins/link/plugin.min.js",
+              "node_modules/tinymce/plugins/paste/plugin.min.js",
+              "node_modules/tinymce/plugins/table/plugin.min.js",
+              "node_modules/echarts/dist/echarts.min.js",
+              "node_modules/echarts/dist/extension/bmap.min.js",
+              "node_modules/chart.js/dist/Chart.min.js"
+            ],
+            "allowedCommonJsDependencies": [
+              "angular2-chartjs",
+              "echarts",
+              "lodash",
+              "zrender/lib/svg/svg",
+              "zrender/lib/vml/vml",
+              "style-loader!leaflet/dist/leaflet.css"
+            ]
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "apps/ngx-app/src/environments/environment.ts",
+                  "with": "apps/ngx-app/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb",
+                  "maximumError": "10kb"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "executor": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "ngx-app:build"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "ngx-app:build:production"
+            }
+          }
+        },
+        "extract-i18n": {
+          "executor": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "ngx-app:build"
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["apps/ngx-app/src/**/*.ts", "apps/ngx-app/src/**/*.html"]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/apps/ngx-app"],
+          "options": {
+            "jestConfig": "apps/ngx-app/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "ngx-app-e2e": {
+      "root": "apps/ngx-app-e2e",
+      "sourceRoot": "apps/ngx-app-e2e/src",
+      "projectType": "application",
+      "targets": {
+        "e2e": {
+          "executor": "@nrwl/cypress:cypress",
+          "options": {
+            "cypressConfig": "apps/ngx-app-e2e/cypress.json",
+            "tsConfig": "apps/ngx-app-e2e/tsconfig.e2e.json",
+            "devServerTarget": "ngx-app:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "ngx-app:serve:production"
+            }
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["apps/ngx-app-e2e/**/*.{js,ts}"]
+          }
+        }
+      }
+    },
+    "shared-ngx-admin": {
+      "projectType": "library",
+      "root": "libs/shared/ngx-admin",
+      "sourceRoot": "libs/shared/ngx-admin/src",
+      "prefix": "of5",
+      "targets": {
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["libs/shared/ngx-admin/src/**/*.ts", "libs/shared/ngx-admin/src/**/*.html"]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/shared/ngx-admin"],
+          "options": {
+            "jestConfig": "libs/shared/ngx-admin/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "shared-ngx-pages": {
+      "projectType": "library",
+      "root": "libs/shared/ngx-pages",
+      "sourceRoot": "libs/shared/ngx-pages/src",
+      "prefix": "of5",
+      "targets": {
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["libs/shared/ngx-pages/src/**/*.ts", "libs/shared/ngx-pages/src/**/*.html"]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/shared/ngx-pages"],
+          "options": {
+            "jestConfig": "libs/shared/ngx-pages/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
     }
   },
   "cli": {

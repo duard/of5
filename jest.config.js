@@ -16,6 +16,9 @@ module.exports = {
     '<rootDir>/libs/shared/app-store',
     '<rootDir>/libs/shared/api-core',
     '<rootDir>/libs/shared/api-shared',
-    '<rootDir>/libs/shared/api-acl'
+    '<rootDir>/libs/shared/api-acl',
+    '<rootDir>/apps/ngx-app',
+    '<rootDir>/libs/shared/ngx-admin',
+    '<rootDir>/libs/shared/ngx-pages'
   ]
 };

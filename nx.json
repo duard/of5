@@ -34,6 +34,10 @@
     "app-store": { "tags": ["scope:core", "type:app-store"] },
     "api-core": { "tags": ["scope:core", "type:api-core"] },
     "api-shared": { "tags": ["scope:core", "type:api-shared"] },
-    "api-acl": { "tags": ["scope:acl", "type:api-acl"] }
+    "api-acl": { "tags": ["scope:acl", "type:api-acl"] },
+    "ngx-app": { "tags": [] },
+    "ngx-app-e2e": { "tags": [], "implicitDependencies": ["ngx-app"] },
+    "shared-ngx-admin": { "tags": ["scope:ngx-admin", "type:admin"] },
+    "shared-ngx-pages": { "tags": ["scope:ngx-pages", "type:pages"] }
   }
 }

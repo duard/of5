@@ -32,7 +32,9 @@
       "@of5/shared/app-store": ["libs/shared/app-store/src/index.ts"],
       "@of5/shared/api-core": ["libs/shared/api-core/src/index.ts"],
       "@of5/shared/api-shared": ["libs/shared/api-shared/src/index.ts"],
-      "@of5/shared/api-acl": ["libs/shared/api-acl/src/index.ts"]
+      "@of5/shared/api-acl": ["libs/shared/api-acl/src/index.ts"],
+      "@of5/shared/ngx-admin": ["libs/shared/ngx-admin/src/index.ts"],
+      "@of5/shared/ngx-pages": ["libs/shared/ngx-pages/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp", "**/*.spec.ts"],
