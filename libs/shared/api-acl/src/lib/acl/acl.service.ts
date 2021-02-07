@@ -3,18 +3,21 @@ import { InjectRepository } from '@nestjs/typeorm';
 import * as arrayToTree from 'array-to-tree';
 import { createQueryBuilder, getTreeRepository, Repository } from 'typeorm';
 
-import { ActionEntity, UserEntity } from '../..';
+import {
+  ActionEntity,
+  ActionScreenEntity,
+  FilterEntity,
+  MemberEntity,
+  RoleActionEntity,
+  RoleEntity,
+  RoleFilterEntity,
+  RoleGroupEntity,
+  RoleScreenEntity,
+  ScreenEntity,
+  UserEntity,
+  UserGroupEntity
+} from '..';
 import { AclData } from '../acl-data.interface';
-import { ActionScreenEntity } from '../action-screen/action-screen.entity';
-import { FilterEntity } from '../filter/filter.entity';
-import { MemberEntity } from '../member/member.entity';
-import { RoleActionEntity } from '../role-action/role-action.entity';
-import { RoleFilterEntity } from '../role-filter/role-filter.entity';
-import { RoleGroupEntity } from '../role-group/roule-group.entity';
-import { RoleScreenEntity } from '../role-screen/role-screen.entity';
-import { RoleEntity } from '../role/role.entity';
-import { ScreenEntity } from '../screen/screen.entity';
-import { UserGroupEntity } from '../user-group/user-group.entity';
 import {
   AssociateActionsWithRoleDTO,
   AssociateFiltersWithRoleDTO,
@@ -128,7 +131,7 @@ export class AclService {
     await qb
       .leftJoinAndSelect('actionScreen.screen', 'screen')
       .delete()
-      .where('screen.screenId = :screenId', { screenId: screen.screenId })
+      .where('screen.screenId = :screenId', { screenId: screen.id })
       .execute();
 
     const toSave: ActionScreenEntity[] = [];
@@ -282,7 +285,7 @@ export class AclService {
       if (screen.parent) {
         screen.roleScreens.forEach((rs) => {
           rs.role.roleActions.forEach((ra) => {
-            if (!alreadyAdd.includes(ra.action.actionId)) {
+            if (!alreadyAdd.includes(ra.action.id)) {
               actions.push(ra.action);
             }
           });
@@ -349,7 +352,7 @@ export class AclService {
         actionsScreen.forEach((a) => {
           delete a.roleActions;
           delete a.actionsScreen;
-          const contains: number = actions.filter((allActions) => allActions.actionId == a.actionId).length;
+          const contains: number = actions.filter((allActions) => allActions.id == a.id).length;
           if (contains) {
             specificActions.push(a);
           }
@@ -413,13 +416,13 @@ export class AclService {
         if (m.parent) {
           getParentIds(m.parent);
         }
-        idsToMap.push(m.screenId);
+        idsToMap.push(m.id);
       }
     }
 
     const associatedParents = await this.screenRepo.findByIds(idsToMap, { relations: ['parent'] }).then((menu) => {
       return menu.map((m) => {
-        m['parentId'] = m.parent?.screenId ? m.parent.screenId : null;
+        m['parentId'] = m.parent?.id ? m.parent.id : null;
         delete m.parent;
         return m;
       });

@@ -5,9 +5,9 @@ import { Crud, CrudController, Override } from '@nestjsx/crud';
 import { ErrorService } from '@of5/shared/api-shared';
 import { BinaryFile, Message } from '@of5/shared/interfaces';
 
-import { UserReq } from './user.decorator';
-import { UserCreateDTO, UserUpdateDTO } from './user.dto';
-import { UserEntity } from './user.entity';
+import { UserReq } from './users.decorator';
+import { UserCreateDTO, UserUpdateDTO } from './users.dto';
+import { UserEntity } from './users.entity';
 import { UsersService } from './users.service';
 
 @Crud({

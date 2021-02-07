@@ -2,19 +2,19 @@ import { Body, Controller, Get, Post, UseGuards } from '@nestjs/common';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { ErrorService } from '@of5/shared/api-shared';
 
-import { JwtAuthGuard } from '../auth/jwt-auth.guard';
-import { UserReq } from '../users/user.decorator';
 import { UserEntity } from '..';
+import { JwtAuthGuard } from '../auth/jwt-auth.guard';
+import { UserReq } from '../users/users.decorator';
 import {
   AssociateActionsWithRoleDTO,
-  AssociateScreenWithActionsDTO,
-  AssociateScreensWithRoleDTO,
+  AssociateFiltersWithRoleDTO,
   AssociateGroupWithRolesDTO,
-  AssociateUserWithGroupsDTO,
   AssociateGroupWithUsersDTO,
+  AssociateScreensWithRoleDTO,
+  AssociateScreenWithActionsDTO,
+  AssociateUserWithGroupsDTO,
   CanAccessDTO
 } from './acl.dto';
-
 import { AclService } from './acl.service';
 
 @Controller('acl')
@@ -33,14 +33,14 @@ export class AclController {
     }
   }
 
-  // @Post('role-filters')
-  // async associateFiltersWithRole(@Body() dto: AssociateFiltersWithRoleDTO) {
-  //     try {
-  //         return await this.service.associateFiltersWithRole(dto);
-  //     } catch (err) {
-  //         await ErrorService.next(err);
-  //     }
-  // }
+  @Post('role-filters')
+  async associateFiltersWithRole(@Body() dto: AssociateFiltersWithRoleDTO) {
+    try {
+      return await this.service.associateFiltersWithRole(dto);
+    } catch (err) {
+      await ErrorService.next(err);
+    }
+  }
 
   @Post('role-actions')
   async associateActionsWithRole(@Body() dto: AssociateActionsWithRoleDTO) {

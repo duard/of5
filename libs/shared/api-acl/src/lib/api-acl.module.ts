@@ -3,18 +3,18 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { ApiSharedModule, localeConfig } from '@of5/shared/api-shared';
 import { I18nModule } from 'nestjs-i18n';
 
-import { AccountModule } from './account/account.module';
+import { MethodEntity } from '.';
+import { AccountModule } from './accounts/accounts.module';
 import { AclModule } from './acl/acl.module';
-import { ActionModule } from './action/action.module';
+import { ActionModule } from './actions/actions.module';
 import { AuthModule } from './auth/auth.module';
-import { FilterModule } from './filter/filter.module';
-import { MenuGroupModule } from './menu-group/menu-group.module';
-import { MenuItemModule } from './menu-item/menu-item.module';
-import { MethodEntity } from './method/method.entity';
-import { ParameterModule } from './parameter/parameter.module';
-import { RoleModule } from './role/role.module';
-import { ScreenModule } from './screen/screen.module';
-import { UserGroupModule } from './user-group/user-group.module';
+import { FilterModule } from './filters/filters.module';
+import { MenuGroupModule } from './menus-groups/menus-groups.module';
+import { MenuItemModule } from './menus-itens/menus-itens.module';
+import { ParameterModule } from './parameters/parameters.module';
+import { RoleModule } from './roles/roles.module';
+import { ScreenModule } from './screens/screens.module';
+import { UserGroupModule } from './users-groups/users-groups.module';
 import { UsersModule } from './users/users.module';
 
 @Module({

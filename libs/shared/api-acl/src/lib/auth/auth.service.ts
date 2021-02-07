@@ -6,9 +6,7 @@ import * as bcrypt from 'bcrypt';
 import { Request } from 'express';
 import { createQueryBuilder, getConnection, getRepository, QueryRunner } from 'typeorm';
 
-import { MemberEntity } from '../member/member.entity';
-import { UserGroupEntity } from '../user-group/user-group.entity';
-import { UserEntity } from '..';
+import { MemberEntity, UserEntity, UserGroupEntity } from '..';
 import { AuthSignInDto, AuthSignUpDto } from './auth.dto';
 
 @Injectable()

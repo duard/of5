@@ -6,10 +6,10 @@ import { BinaryFile } from '@of5/shared/interfaces';
 import * as bcrypt from 'bcrypt';
 import { Connection, createQueryBuilder, Repository } from 'typeorm';
 
-import { MemberEntity } from '../member/member.entity';
-import { UserGroupEntity } from '../user-group/user-group.entity';
-import { UserCreateDTO, UserUpdateDTO } from './user.dto';
-import { UserEntity } from './user.entity';
+import { MemberEntity } from '../members/members.entity';
+import { UserGroupEntity } from '../users-groups/users-groups.entity';
+import { UserCreateDTO, UserUpdateDTO } from './users.dto';
+import { UserEntity } from './users.entity';
 
 @Injectable()
 export class UsersService extends TypeOrmCrudService<UserEntity> {

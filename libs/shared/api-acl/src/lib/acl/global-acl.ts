@@ -5,19 +5,20 @@ import { Observable } from 'rxjs';
 import { Action } from 'rxjs/internal/scheduler/Action';
 import { catchError, map } from 'rxjs/operators';
 import { createQueryBuilder, getConnection } from 'typeorm';
-
-import { ActionScreenEntity } from '../action-screen/action-screen.entity';
-import { ActionEntity } from '../action/action.entity';
-import { FilterEntity } from '../filter/filter.entity';
-import { MemberEntity } from '../member/member.entity';
-import { RoleActionEntity } from '../role-action/role-action.entity';
-import { RoleFilterEntity } from '../role-filter/role-filter.entity';
-import { RoleGroupEntity } from '../role-group/roule-group.entity';
-import { RoleScreenEntity } from '../role-screen/role-screen.entity';
-import { RoleEntity } from '../role/role.entity';
-import { ScreenEntity } from '../screen/screen.entity';
-import { UserGroupEntity } from '../user-group/user-group.entity';
-import { UserEntity } from '..';
+import {
+  RoleEntity,
+  FilterEntity,
+  RoleFilterEntity,
+  ActionEntity,
+  RoleActionEntity,
+  ScreenEntity,
+  RoleScreenEntity,
+  MemberEntity,
+  UserGroupEntity,
+  UserEntity,
+  RoleGroupEntity,
+  ActionScreenEntity
+} from '..';
 import { AclService } from './acl.service';
 
 export class GlobalAcl implements NestInterceptor {
