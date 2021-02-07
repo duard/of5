@@ -25,7 +25,14 @@
       "@of5/shared/environments": ["libs/shared/environments/src/index.ts"],
       "@of5/shared/data-access": ["libs/shared/data-access/src/index.ts"],
       "@of5/shared/core": ["libs/shared/core/src/index.ts"],
-      "@of5/shared/interfaces": ["libs/shared/interfaces/src/index.ts"]
+      "@of5/shared/interfaces": ["libs/shared/interfaces/src/index.ts"],
+      "@of5/api-core": ["libs/api-core/src/index.ts"],
+      "@of5/api-shared": ["libs/api-shared/src/index.ts"],
+      "@of5/shared/app-core": ["libs/shared/app-core/src/index.ts"],
+      "@of5/shared/app-store": ["libs/shared/app-store/src/index.ts"],
+      "@of5/shared/api-core": ["libs/shared/api-core/src/index.ts"],
+      "@of5/shared/api-shared": ["libs/shared/api-shared/src/index.ts"],
+      "@of5/shared/api-acl": ["libs/shared/api-acl/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp", "**/*.spec.ts"],

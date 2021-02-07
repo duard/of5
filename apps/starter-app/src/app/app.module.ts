@@ -1,19 +1,14 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
-import { SharedCoreModule } from '@of5/shared/core';
+import { AppCoreModule } from '@of5/shared/app-core';
 
 import { AppComponent } from './app.component';
 
 @NgModule({
   declarations: [AppComponent],
-  imports: [
-    BrowserModule,
-    SharedCoreModule,
-
-    RouterModule.forRoot([], { initialNavigation: 'enabled' }),
-  ],
+  imports: [BrowserModule, AppCoreModule, RouterModule.forRoot([], { initialNavigation: 'enabled' })],
   providers: [],
-  bootstrap: [AppComponent],
+  bootstrap: [AppComponent]
 })
 export class AppModule {}

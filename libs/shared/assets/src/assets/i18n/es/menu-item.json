@@ -1,0 +1,5 @@
+{
+    "NOT_FOUND": "Elemento de menú no encontrado",
+    "PARENT_NOT_FOUND": "No se encontró el menú del elemento principal",
+    "PARENT_REQUIRED": "Se requiere un elemento del menú principal"
+}

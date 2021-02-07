@@ -1,10 +1,10 @@
 import { Injectable } from '@nestjs/common';
 
-import { IMessage  } from "@of5/shared/interfaces";
+import { Message } from '@of5/shared/interfaces';
 
 @Injectable()
 export class AppService {
-  getData(): IMessage {
+  getData(): Message {
     return { message: 'Welcome to starter-api!' };
   }
 }
