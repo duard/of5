@@ -3,7 +3,7 @@ import { Entity, JoinColumn, ManyToOne } from 'typeorm';
 
 import { RoleEntity, ScreenEntity } from '..';
 
-@Entity({ name: 'role_screens' })
+@Entity({ name: 'roles_screens' })
 export class RoleScreenEntity extends BaseMysqlEntity {
   constructor(role?: RoleEntity, screen?: ScreenEntity) {
     super();

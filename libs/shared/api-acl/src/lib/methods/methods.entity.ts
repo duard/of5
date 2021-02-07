@@ -10,7 +10,7 @@ export class MethodEntity extends BaseMysqlEntity {
 
   @ManyToMany(() => UserGroupEntity, (group) => group.methods)
   @JoinTable({
-    name: 'user_group_method',
+    name: 'users_groups_methods',
     joinColumn: {
       name: 'method_id',
       referencedColumnName: 'id'

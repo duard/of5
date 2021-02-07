@@ -3,7 +3,7 @@ import { Entity, JoinColumn, ManyToOne } from 'typeorm';
 
 import { FilterEntity, RoleEntity } from '..';
 
-@Entity({ name: 'role_filters' })
+@Entity({ name: 'roles_filters' })
 export class RoleFilterEntity extends BaseMysqlEntity {
   constructor(role?: RoleEntity, filter?: FilterEntity) {
     super();

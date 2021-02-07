@@ -3,7 +3,7 @@ import { Column, Entity, JoinColumn, ManyToMany, ManyToOne, OneToMany } from 'ty
 
 import { MemberEntity, MethodEntity, RoleGroupEntity, UserEntity } from '..';
 
-@Entity({ name: 'user_groups' })
+@Entity({ name: 'users_groups' })
 export class UserGroupEntity extends BaseMysqlEntity {
   @Column({ name: 'description', type: 'varchar', comment: 'Nome do grupo de usuário' })
   description: string;

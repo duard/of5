@@ -3,7 +3,7 @@ import { Column, Entity, JoinColumn, ManyToOne } from 'typeorm';
 
 import { UserEntity } from '..';
 
-@Entity({ name: 'menu_groups' })
+@Entity({ name: 'menus_groups' })
 export class MenuGroupEntity extends BaseMysqlEntity {
   @Column({ name: 'description', type: 'varchar', comment: 'descrição do grupo de menu' })
   description: string;

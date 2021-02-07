@@ -3,7 +3,7 @@ import { Entity, JoinColumn, ManyToOne } from 'typeorm';
 
 import { RoleEntity, UserGroupEntity } from '..';
 
-@Entity({ name: 'role_groups' })
+@Entity({ name: 'roles_groups' })
 export class RoleGroupEntity extends BaseMysqlEntity {
   constructor(group?: UserGroupEntity, role?: RoleEntity) {
     super();
