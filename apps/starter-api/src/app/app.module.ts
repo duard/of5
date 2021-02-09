@@ -1,14 +1,14 @@
-import { Module } from '@nestjs/common';
-import { ConfigModule } from '@nestjs/config';
+import { Logger, Module } from '@nestjs/common';
+import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { ApiCoreModule } from '@of5/shared/api-core';
 import { ApiAclModule } from '@of5/shared/api-acl';
+import { ApiCoreModule } from '@of5/shared/api-core';
+import { ApiSharedModule } from '@of5/shared/api-shared';
 
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { config } from './config';
 import { DatabaseConfig } from './database.config';
-import { ApiSharedModule } from '@of5/shared/api-shared';
 
 @Module({
   imports: [
@@ -29,4 +29,16 @@ import { ApiSharedModule } from '@of5/shared/api-shared';
   controllers: [AppController],
   providers: [AppService]
 })
-export class AppModule {}
+export class AppModule {
+  constructor(private configService: ConfigService) {
+    const dbConfig = this.configService.get('database');
+    console.log('AppModule\n\n');
+    if (process.env.NODE_ENV !== 'production') {
+      Logger.debug(process.env.DB_HOST, 'HOSTNAME');
+      Logger.debug(process.env.DB_USER, 'USERNAME');
+      Logger.debug(process.env.DB_PASS, 'PASSWORD');
+      Logger.debug(process.env.DB_NAME, 'DATABASE');
+    }
+    console.log('config', dbConfig);
+  }
+}
